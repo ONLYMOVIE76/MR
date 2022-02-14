@@ -519,45 +519,45 @@ async def settings(client, message):
     if settings is not None:
         buttons = [
             [
-                InlineKeyboardButton('Filter Button',
+                InlineKeyboardButton('Fɪʟᴛᴇʀ Bᴜᴛᴛᴏɴ',
                                      callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('Single' if settings["button"] else 'Double',
+                InlineKeyboardButton('Sɪɴɢʟᴇ' if settings["button"] else 'Dᴏᴜʙʟᴇ',
                                      callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}#{settings["delete_time"]}')
             ],
             [
-                InlineKeyboardButton('Bot PM',
+                InlineKeyboardButton('Bᴏᴛ PM',
                                      callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yes' if settings["botpm"] else '❌ No',
+                InlineKeyboardButton('✅ Yᴇs' if settings["botpm"] else '❌ Nᴏ',
                                      callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}#{settings["delete_time"]}')
             ],
             [
-                InlineKeyboardButton('File Secure',
+                InlineKeyboardButton('Fɪʟᴇ Sᴇᴄᴜʀᴇ',
                                      callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yes' if settings["file_secure"] else '❌ No',
+                InlineKeyboardButton('✅ Yᴇs' if settings["file_secure"] else '❌ Nᴏ',
                                      callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}#{settings["delete_time"]}')
             ],
             [
-                InlineKeyboardButton('IMDB',
+                InlineKeyboardButton('Iᴍᴅʙ',
                                      callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yes' if settings["imdb"] else '❌ No',
+                InlineKeyboardButton('✅ Yᴇs' if settings["imdb"] else '❌ Nᴏ',
                                      callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}#{settings["delete_time"]}')
             ],
             [
-                InlineKeyboardButton('Spell Check',
+                InlineKeyboardButton('Sᴘᴇʟʟ Cʜᴇᴄᴋ',
                                      callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yes' if settings["spell_check"] else '❌ No',
+                InlineKeyboardButton('✅ Yᴇs' if settings["spell_check"] else '❌ Nᴏ',
                                      callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}#{settings["delete_time"]}')
             ],
             [
-                InlineKeyboardButton('Auto Delete',
+                InlineKeyboardButton('Aᴜᴛᴏ Dᴇʟᴇᴛᴇ',
                                      callback_data=f'setgs#delete#{settings["auto_delete"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton(f'{settings["delete_time"]} Sec' if settings["auto_delete"] else '❌ No',
+                InlineKeyboardButton(f'{settings["delete_time"]} Sᴇᴄ' if settings["auto_delete"] else '❌ Nᴏ',
                                      callback_data=f'setgs#delete#{settings["auto_delete"]}#{str(grp_id)}#{settings["delete_time"]}')
             ],
             [
-                InlineKeyboardButton('Welcome',
+                InlineKeyboardButton('Wᴇʟᴄᴏᴍᴇ',
                                      callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yes' if settings["welcome"] else '❌ No',
+                InlineKeyboardButton('✅ Yᴇs' if settings["welcome"] else '❌ Nᴏ',
                                      callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}#{settings["delete_time"]}')
             ]
         ]
