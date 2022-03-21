@@ -52,8 +52,8 @@ async def give_filter(client, message):
     if len(message.text) < 3:
         try:
             msg = await message.reply_text(
-                "Nice Try! But, I Need Minimum `3` Character To Find Your Requesting Details,\nPlease Edit Your Request;",
-                quote=True)
+                f"**Nice Try! But, I Need Minimum --__3__-- Character To Find Your Requesting Details,\n"
+                f"Please Edit Your Request** `{message.text}`", quote=True)
             req = message.from_user.id if message.from_user else 0
             if temp.TEMP_USER.get(req):
                 del temp.TEMP_USER[req]
