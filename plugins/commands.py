@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 import sys
 import time
 import logging
@@ -448,15 +449,20 @@ async def delete_all_index_confirm(bot, message):
     await message.message.edit('Successfully Deleted All The Indexed Files.')
 
 
-@Client.on_message(filters.command('restart') & filters.user(ADMINS))
+# Update
+
+@Client.on_message(filters.command('update') & filters.user(ADMINS))
 async def upstream_repo(bot, message):
-    os.system("git pull")
-    time.sleep(10)
-    os.execl(sys.executable, sys.executable, *sys.argv)
-    msg = await message.reply("Your Bot 🤖 Is Updating & Restarting...", quote=True)
-    time.sleep(10)
-    await msg.delete()
-    await message.delete()
+    try:
+        out = subprocess.check_output(["git", "pull"]).decode("UTF-8")
+        if "Already up to date." in str(out):
+            return await message.reply_text("Its already up-to date!")
+        await message.reply_text(f"```{out}```")
+    except Exception as e:
+        return await message.reply_text(str(e))
+    m = await message.reply_text(
+        "**Updated with default branch, restarting now.**")
+    os.execvp(sys.executable, [sys.executable, "main.py"])
 
 
 @Bot.on_message(filters.command("bat"))
