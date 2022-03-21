@@ -44,19 +44,22 @@ async def give_filter(client, message):
 `CHAT: {message.chat.title} ({message.chat.id})`
 **MESSAGE: You Cannot Request Via Channel**"""
         chat_channel = await message.reply_text(text, parse_mode="md", quote=True)
-        await asyncio.sleep(2)
+        await asyncio.sleep(5)
         await chat_channel.delete()
         await message.delete()
         return
 
-    if len(message.text) < 2:
-        await client.answer(
-            "Nice Try! But, I Need Minimum 3 Character To Find Your Requesting Details,\nPlease Edit Your Request;",
-            show_alert=True)
+    if len(message.text) < 3:
+        msg = await message.reply_text(
+            "Nice Try! But, I Need Minimum `3` Character To Find Your Requesting Details,\nPlease Edit Your Request;",
+            quote=True)
         req = message.from_user.id if message.from_user else 0
         if temp.get(req):
             del temp[req]
         temp[req] = "edit"
+        await asyncio.sleep(5)
+        await msg.delete()
+        return
 
     keywords = await get_filters(group_id)
     for keyword in reversed(sorted(keywords, key=len)):
@@ -114,7 +117,7 @@ async def give_filter_edited(client, message):
 `CHAT: {message.chat.title} ({message.chat.id})`
 **MESSAGE: You Cannot Request Via Channel**"""
         chat_channel = await message.reply_text(text, parse_mode="md", quote=True)
-        await asyncio.sleep(2)
+        await asyncio.sleep(5)
         await chat_channel.delete()
         await message.delete()
         return
