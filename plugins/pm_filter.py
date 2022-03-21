@@ -49,6 +49,15 @@ async def give_filter(client, message):
         await message.delete()
         return
 
+    if len(message.text) < 2:
+        await client.answer(
+            "Nice Try! But, I Need Minimum 3 Character To Find Your Requesting Details,\nPlease Edit Your Request;",
+            show_alert=True)
+        req = message.from_user.id if message.from_user else 0
+        if temp.get(req):
+            del temp[req]
+        temp[req] = "edit"
+
     keywords = await get_filters(group_id)
     for keyword in reversed(sorted(keywords, key=len)):
         pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
@@ -1097,13 +1106,6 @@ async def auto_filter(client, msg, spoll=False):
                     await Send_message.delete()
                     return
         else:
-            await msg.answer(
-                "Nice Try! But, I Need Minimum 3 Character To Find Your Requesting Details,\nPlease Edit Your Request;",
-                show_alert=True)
-            req = message.from_user.id if message.from_user else 0
-            if temp.get(req):
-                del temp[req]
-            temp[req] = "edit"
             return
     else:
         message = msg.message.reply_to_message  # msg will be callback query
