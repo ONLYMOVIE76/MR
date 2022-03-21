@@ -70,7 +70,6 @@ INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
 FILE_PROTECT = {}
 IMPORTED = {}
 HELPABLE = {}
-temp = {}
 dispatcher = None
 
 LOG_STR = "Current Customized Configurations are:-\n"

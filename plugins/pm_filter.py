@@ -55,9 +55,9 @@ async def give_filter(client, message):
                 "Nice Try! But, I Need Minimum `3` Character To Find Your Requesting Details,\nPlease Edit Your Request;",
                 quote=True)
             req = message.from_user.id if message.from_user else 0
-            if temp.get(req):
-                del temp[req]
-            temp[req] = "edit"
+            if temp.TEMP_USER.get(req):
+                del temp.TEMP_USER[req]
+            temp.TEMP_USER[req] = "edit"
             await asyncio.sleep(5)
             await msg.delete()
             return
