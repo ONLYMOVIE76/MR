@@ -126,8 +126,8 @@ async def give_filter_edited(client, message):
         await message.delete()
         return
 
-    if temp.get(message.from_user.id) == "edit":
-        del temp[message.from_user.id]
+    if temp.TEMP_USER.get(message.from_user.id) == "edit":
+        del temp.TEMP_USER[message.from_user.id]
     else:
         return
 
