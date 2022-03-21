@@ -258,30 +258,33 @@ async def start(client, message):
                     f"Cʜᴀɴɴᴇʟ: @UFSNewRelease \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
 
     f_caption = f_caption + f"\n\n{f_sub_caption}"
-    await client.send_cached_media(
-        chat_id=message.from_user.id,
-        file_id=file_id,
-        caption=f_caption,
-        parse_mode="html",
-        protect_content=FILE_SECURE,
-        reply_markup=InlineKeyboardMarkup(
-            [
+    try:
+        await client.send_cached_media(
+            chat_id=message.from_user.id,
+            file_id=file_id,
+            caption=f_caption,
+            parse_mode="html",
+            protect_content=FILE_SECURE,
+            reply_markup=InlineKeyboardMarkup(
                 [
-                    InlineKeyboardButton(
-                        '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
-                    ),
-                    InlineKeyboardButton(
-                        '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
-                    )
+                    [
+                        InlineKeyboardButton(
+                            '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                        ),
+                        InlineKeyboardButton(
+                            '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
+                        )
+                    ]
                 ]
-            ]
+            )
         )
-    )
+    except Exception as e:
+        return await message.reply(e)
 
 
 @Client.on_message(filters.command("help"))

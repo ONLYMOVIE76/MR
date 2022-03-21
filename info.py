@@ -22,9 +22,9 @@ def is_enabled(value, default):
 
 # Bot information
 SESSION = environ.get('SESSION', 'UFSBotz')
-API_ID = int(environ.get('API_ID', '3607361'))
-API_HASH = environ.get('API_HASH', 'c57bcc4b09591db4f90f60b469e8870f')
-BOT_TOKEN = environ.get('BOT_TOKEN', '1635091229:AAE40V_s07MAKJRDM-LTL2dPIXyG9iW8rBk')
+API_ID = int(environ.get('API_ID', '5639554'))
+API_HASH = environ.get('API_HASH', '786942f68ec94b810ef0388e3418e936')
+BOT_TOKEN = environ.get('BOT_TOKEN', '1931994342:AAGrhQlhhPpsLklIRfxdLJiXid0EMGfu2jk')
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -32,9 +32,9 @@ USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
 PICS = (environ.get('PICS', 'https://telegra.ph/file/b62f9703cf805da50d5c4.jpg')).split()
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '631110062').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '631110062 1535083157').split()]
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '0').split()]
-auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '631110062').split()]
+auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '631110062 1535083157').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_channel = environ.get('AUTH_CHANNEL', '0')
 auth_grp = environ.get('AUTH_GROUP')
@@ -63,12 +63,14 @@ TG_MAX_MSG_SELECT = int(environ.get('TG_MAX_MSG_SELECT', 1000))
 USE_AS_BOT = environ.get("USE_AS_BOT", True)
 TMP_DOWNLOAD_DIRECTORY = "./UFSBotz/"
 AUTO_DELETE = True
-DELETE_TIME  = 120
+DELETE_TIME = 120
+BAN_STICKER = 'CAACAgIAAxkBAAIkmWC36kNKGGhvBWVWBSq7mAF_tgRgAAKAAwACzFRJCRNMmnwVWBmTHwQ'
 INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
 
 FILE_PROTECT = {}
 IMPORTED = {}
 HELPABLE = {}
+temp = {}
 dispatcher = None
 
 LOG_STR = "Current Customized Configurations are:-\n"

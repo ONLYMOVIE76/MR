@@ -91,6 +91,72 @@ async def give_filter(client, message):
         await auto_filter(client, message)
 
 
+@Client.on_message(filters.group & filters.text & filters.edited & filters.incoming)
+async def give_filter_edited(client, message):
+    group_id = message.chat.id
+    chat_type = message.sender_chat.type if message.sender_chat else None
+    name = message.text
+
+    if chat_type in ["channel"]:
+        text = f"""
+#DETECT_SENDER_AS_CHANNEL
+
+**CHANNEL: {message.sender_chat.title} ({message.sender_chat.id})** 
+`CHAT: {message.chat.title} ({message.chat.id})`
+**MESSAGE: You Cannot Request Via Channel**"""
+        chat_channel = await message.reply_text(text, parse_mode="md", quote=True)
+        await asyncio.sleep(2)
+        await chat_channel.delete()
+        await message.delete()
+        return
+
+    if temp.get(message.from_user.id) == "edit":
+        del temp[message.from_user.id]
+    else:
+        return
+
+    keywords = await get_filters(group_id)
+    for keyword in reversed(sorted(keywords, key=len)):
+        pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
+        if re.search(pattern, name, flags=re.IGNORECASE):
+            await check_manual_filter(client, group_id, keyword, message, 0)
+            return
+            # reply_text, btn, alert, fileid = await find_filter(group_id, keyword)
+            #
+            # if reply_text:
+            #     reply_text = reply_text.replace("\\n", "\n").replace("\\t", "\t")
+            #
+            # if btn is not None:
+            #     try:
+            #         if fileid == "None":
+            #             if btn == "[]":
+            #                 await message.reply_text(reply_text, disable_web_page_preview=True)
+            #             else:
+            #                 button = eval(btn)
+            #                 await message.reply_text(
+            #                     reply_text,
+            #                     disable_web_page_preview=True,
+            #                     reply_markup=InlineKeyboardMarkup(button)
+            #                 )
+            #         elif btn == "[]":
+            #             await message.reply_cached_media(
+            #                 fileid,
+            #                 caption=reply_text or ""
+            #             )
+            #         else:
+            #             button = eval(btn)
+            #             await message.reply_cached_media(
+            #                 fileid,
+            #                 caption=reply_text or "",
+            #                 reply_markup=InlineKeyboardMarkup(button)
+            #             )
+            #     except Exception as e:
+            #         logger.exception(e)
+            #     break
+    else:
+        await auto_filter(client, message)
+
+
 @Client.on_callback_query(filters.regex(r"^next"))
 async def next_page(bot, query):
     ident, req, key, offset = query.data.split("_")
@@ -1031,6 +1097,13 @@ async def auto_filter(client, msg, spoll=False):
                     await Send_message.delete()
                     return
         else:
+            await msg.answer(
+                "Nice Try! But, I Need Minimum 3 Character To Find Your Requesting Details,\nPlease Edit Your Request;",
+                show_alert=True)
+            req = message.from_user.id if message.from_user else 0
+            if temp.get(req):
+                del temp[req]
+            temp[req] = "edit"
             return
     else:
         message = msg.message.reply_to_message  # msg will be callback query
