@@ -50,16 +50,20 @@ async def give_filter(client, message):
         return
 
     if len(message.text) < 3:
-        msg = await message.reply_text(
-            "Nice Try! But, I Need Minimum `3` Character To Find Your Requesting Details,\nPlease Edit Your Request;",
-            quote=True)
-        req = message.from_user.id if message.from_user else 0
-        if temp.get(req):
-            del temp[req]
-        temp[req] = "edit"
-        await asyncio.sleep(5)
-        await msg.delete()
-        return
+        try:
+            msg = await message.reply_text(
+                "Nice Try! But, I Need Minimum `3` Character To Find Your Requesting Details,\nPlease Edit Your Request;",
+                quote=True)
+            req = message.from_user.id if message.from_user else 0
+            if temp.get(req):
+                del temp[req]
+            temp[req] = "edit"
+            await asyncio.sleep(5)
+            await msg.delete()
+            return
+        except Exception as e:
+            logging.info(f"Error: \n{str(e)}")
+            return
 
     keywords = await get_filters(group_id)
     for keyword in reversed(sorted(keywords, key=len)):
