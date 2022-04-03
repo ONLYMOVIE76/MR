@@ -1144,7 +1144,7 @@ async def auto_filter(client, msg, spoll=False):
         ]
 
         for file in files:
-            if any(x.lower() in str(file.file_name).lower() for x in ["PreDVD", "Scr"]):
+            if any(x.lower() in str(file.file_name).lower() for x in ["PreDVD", "CAM", "Scr"]):
                 Quality = "List Contains PreDVDRip/ScrRip"
                 break
             else:
