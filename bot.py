@@ -5,6 +5,8 @@ import logging.config
 import pyromod.listen
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
+
+import bot
 from database.ia_filterdb import Media
 from database.restart_db import clean_restart_stage
 from database.users_chats_db import db
@@ -54,14 +56,14 @@ class Bot(Client):
             # print("[INFO]: SENDING ONLINE STATUS")
             logging.info(f"[INFO]: SENDING ONLINE STATUS")
             if restart_data:
-                await dispatcher.edit_message_text(
+                await bot.Bot.edit_message_text(self,
                     restart_data["chat_id"],
                     restart_data["message_id"],
                     "**Restarted Successfully**",
                 )
 
             else:
-                await dispatcher.send_message(LOG_CHANNEL, "**Bot Restarted Successfully**!")
+                await bot.Bot.send_message(self, LOG_CHANNEL, "**Bot Restarted Successfully**!")
         except Exception as e:
             logging.info(f"[ERROR]: {str(e)}")
             pass
