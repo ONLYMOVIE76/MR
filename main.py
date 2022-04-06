@@ -4,6 +4,7 @@ import re
 import logging
 import importlib
 
+from database.restart_db import clean_restart_stage
 from info import *
 from bot import Bot
 from Script import script
@@ -38,3 +39,19 @@ def main():
 if __name__ == '__main__':
     logging.info("Successfully Loaded Modules: " + str(ALL_MODULES))
     main()
+
+    restart_data = await clean_restart_stage()
+
+    try:
+        print("[INFO]: SENDING ONLINE STATUS")
+        if restart_data:
+            await Bot.edit_message_text(
+                restart_data["chat_id"],
+                restart_data["message_id"],
+                "**Restarted Successfully**",
+            )
+
+        else:
+            await Bot.send_message(LOG_CHANNEL, "**Bot Restarted Successfully**!")
+    except Exception:
+        pass

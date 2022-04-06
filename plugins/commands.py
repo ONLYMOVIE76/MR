@@ -15,6 +15,7 @@ from database.batch_db import get_batch
 from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id
+from database.restart_db import start_restart_stage
 from database.users_chats_db import db
 from info import CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, LOG_CHANNEL, PICS, HELPABLE, FILE_PROTECT
 from plugins.misc import paginate_modules
@@ -451,8 +452,8 @@ async def delete_all_index_confirm(bot, message):
 
 # Update
 
-@Client.on_message(filters.command('update') & filters.user(ADMINS))
-async def upstream_repo(bot, message):
+@Client.on_message(filters.command("update") & filters.user(ADMINS))
+async def update_restart(bot, message):
     try:
         out = subprocess.check_output(["git", "pull"]).decode("UTF-8")
         if "Already up to date." in str(out):
@@ -462,7 +463,23 @@ async def upstream_repo(bot, message):
         return await message.reply_text(str(e))
     m = await message.reply_text(
         "**Updated with default branch, restarting now.**")
-    os.execvp(sys.executable, [sys.executable, "main.py"])
+    await restart(m)
+
+
+# Update
+
+# @Client.on_message(filters.command('update') & filters.user(ADMINS))
+# async def upstream_repo(bot, message):
+#     try:
+#         out = subprocess.check_output(["git", "pull"]).decode("UTF-8")
+#         if "Already up to date." in str(out):
+#             return await message.reply_text("Its already up-to date!")
+#         await message.reply_text(f"```{out}```")
+#     except Exception as e:
+#         return await message.reply_text(str(e))
+#     m = await message.reply_text(
+#         "**Updated with default branch, restarting now.**")
+#     os.execvp(sys.executable, [sys.executable, "main.py"])
 
 
 @Bot.on_message(filters.command("bat"))
@@ -472,6 +489,12 @@ async def start111(client: Client, message):
         await client.send_message(message.chat.id, f'Your name is: ')
     except Exception as err:
         await client.send_message(message.chat.id, f'Error is: {str(err)}')
+
+
+async def restart(message):
+    if message:
+        await start_restart_stage(message.chat.id, message.message_id)
+    os.execvp(sys.executable, [sys.executable, "main.py"])
 
 
 def send_help(client, chat_id, text, keyboard=None):
