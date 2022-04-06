@@ -6,8 +6,9 @@ import pyromod.listen
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
+from database.restart_db import clean_restart_stage
 from database.users_chats_db import db
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, dispatcher
+from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, dispatcher, LOG_CHANNEL
 from utils import temp
 
 # Get logging configurations
@@ -46,6 +47,22 @@ class Bot(Client):
         logging.info(LOG_STR)
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         logging.info(f"{me.first_name} Has Started Running...🏃💨💨")
+
+        restart_data = await clean_restart_stage()
+
+        try:
+            print("[INFO]: SENDING ONLINE STATUS")
+            if restart_data:
+                await dispatcher.edit_message_text(
+                    restart_data["chat_id"],
+                    restart_data["message_id"],
+                    "**Restarted Successfully**",
+                )
+
+            else:
+                await dispatcher.send_message(LOG_CHANNEL, "**Bot Restarted Successfully**!")
+        except Exception:
+            pass
 
     async def stop(self, *args):
         await super().stop()
