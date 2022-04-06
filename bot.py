@@ -54,8 +54,8 @@ class Bot(Client):
 
         try:
             # print("[INFO]: SENDING ONLINE STATUS")
-            logging.info(f"[INFO]: SENDING ONLINE STATUS")
             if restart_data:
+                logging.info(f"[INFO]: RESTARTING PROCESS")
                 await bot.Bot.edit_message_text(self,
                     restart_data["chat_id"],
                     restart_data["message_id"],

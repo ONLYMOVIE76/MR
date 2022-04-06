@@ -457,7 +457,7 @@ async def update_restart(bot, message):
     try:
         out = subprocess.check_output(["git", "pull"]).decode("UTF-8")
         if "Already up to date." in str(out):
-            return await message.reply_text("Its already up-to date!")
+            return await message.reply_text("Its Already Up-To Date!")
         await message.reply_text(f"```{out}```")
     except Exception as e:
         return await message.reply_text(str(e))
