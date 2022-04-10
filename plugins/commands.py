@@ -123,6 +123,7 @@ async def start(client, message):
     file_id = message.command[1]
     # unique_id, f_id, file_ref, caption = await get_batch(file_id)
 
+    settings = None
     if FILE_PROTECT.get(message.from_user.id):
         grpid = FILE_PROTECT.get(message.from_user.id)
         settings = await sett_db.get_settings(str(grpid))
