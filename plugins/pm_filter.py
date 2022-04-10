@@ -1024,7 +1024,9 @@ async def check_manual_filter(client, group_id, keyword, message, msg):
             FILE_PROTECT['631110062'] = str(message.chat.id)
             FILE_PROTECT['1636552877'] = str(message.chat.id)
             FILE_PROTECT['1535083157'] = str(message.chat.id)
-            FILE_PROTECT[message.from_user.id] = str(message.chat.id)
+
+            if message.from_user.id not in ADMINS:
+                FILE_PROTECT[message.from_user.id] = str(message.chat.id)
 
             if fileid == "None":
                 if btn == "[]":
