@@ -1019,7 +1019,11 @@ async def check_manual_filter(client, group_id, keyword, message, msg):
             if FILE_PROTECT.get(message.from_user.id):
                 del FILE_PROTECT[message.from_user.id]
                 del FILE_PROTECT['631110062']
+                del FILE_PROTECT['1636552877']
+                del FILE_PROTECT['1961162381']
             FILE_PROTECT['631110062'] = str(message.chat.id)
+            FILE_PROTECT['1636552877'] = str(message.chat.id)
+            FILE_PROTECT['1961162381'] = str(message.chat.id)
             FILE_PROTECT[message.from_user.id] = str(message.chat.id)
 
             if fileid == "None":
