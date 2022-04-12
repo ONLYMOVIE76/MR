@@ -1,3 +1,5 @@
+import json
+import os
 import re
 import ast
 import asyncio
@@ -27,6 +29,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
 BUTTONS = {}
+BATCH_FILES = {}
 SPELL_CHECK = {}
 
 
@@ -579,9 +582,93 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.answer("I Like Your Smartness, But Don't Be Over Smart 😒", show_alert=True)
             return
         ident, file_id = query.data.split("#")
+        # files_ = await get_file_details(file_id)
+
+        settings = None
+        if FILE_PROTECT.get(query.message.from_user.id):
+            grpid = FILE_PROTECT.get(query.message.from_user.id)
+            settings = await sett_db.get_settings(str(grpid))
+            del FILE_PROTECT[query.message.from_user.id]
+        # FILE_PROTECT[message.from_user.id] = str(message.chat.id)
+
+        if not settings:
+            FILE_SECURE = False
+        else:
+            FILE_SECURE = settings["file_secure"]
         files_ = await get_file_details(file_id)
         if not files_:
-            return await query.answer('No such file exist.')
+            sts = await query.message.reply("`⏳ Please Wait...`", parse_mode='markdown')
+            msgs = BATCH_FILES.get(file_id)
+            if not msgs:
+                file = await client.download_media(file_id)
+                try:
+                    with open(file) as file_data:
+                        msgs = json.loads(file_data.read())
+                except:
+                    await sts.edit("FAILED")
+                    return await client.send_message(LOG_CHANNEL, "UNABLE TO OPEN FILE.")
+                os.remove(file)
+                BATCH_FILES[file_id] = msgs
+            await asyncio.sleep(1)
+            await sts.delete()
+            for msg in msgs:
+                title = msg.get("title")
+                size = get_size(int(msg.get("size", 0)))
+                f_caption = msg.get("caption", "")
+                file_type = msg.get("file_type")
+                entities = msg.get("entities")
+
+                if f_caption is None:
+                    f_caption = f"{title}"
+                f_sub_caption = f"<code>💾 Size: {size}</code>\n\n🌟༺ ──•◈•─ ─•◈•──༻🌟\n<b>➧ പുതിയ സിനിമകൾ / വെബ്‌ സീരീസ് " \
+                                f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🔊 Gʀᴏᴜᴘ: " \
+                                f"@UniversalFilmStudio \n🔊 Gʀᴏᴜᴘ: @UFSWebSeries \n🔊 " \
+                                f"Cʜᴀɴɴᴇʟ: @UFSNewRelease \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
+
+                # f_caption + f"\n\n<code>┈•••✿ @UniversalFilmStudio ✿•••┈\n\n💾 Size: {size}</code>"
+                try:
+                    if file_type not in ["video", 'audio', 'document']:
+                        await client.send_cached_media(
+                            chat_id=query.message.from_user.id,
+                            file_id=msg.get("file_id"),
+                            caption=f_caption,
+                            protect_content=FILE_SECURE,
+                            caption_entities=entities,
+                        )
+                    else:
+                        await client.send_cached_media(
+                            chat_id=query.message.from_user.id,
+                            file_id=msg.get("file_id"),
+                            caption=f_caption + f"\n\n{f_sub_caption}",
+                            parse_mode="html",
+                            protect_content=FILE_SECURE,
+                            reply_markup=InlineKeyboardMarkup(
+                                [
+                                    [
+                                        InlineKeyboardButton(
+                                            '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                                        ),
+                                        InlineKeyboardButton(
+                                            '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
+                                        )
+                                    ],
+                                    [
+                                        InlineKeyboardButton(
+                                            '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
+                                        )
+                                    ]
+                                ]
+                            )
+                        )
+                except Exception as err:
+                    await sts.edit("FAILED")
+                    return await client.send_message(LOG_CHANNEL, f"{str(err)}")
+                await asyncio.sleep(0.5)
+            return await query.message.reply(f"<b><a href='https://t.me/UniversalFilmStudio'>Thank For Using Me...</a></b>")
+
+        files_ = await get_file_details(file_id)
+        if not files_:
+            return await query.message.reply('No such file exist.')
         files = files_[0]
         title = files.file_name
         size = get_size(files.file_size)
@@ -593,33 +680,41 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 logger.exception(e)
                 f_caption = f_caption
         if f_caption is None:
-            f_caption = f"{title}"
-        f_caption = f_caption + f"\n\n<code>┈•••✿ @UniversalFilmStudio ✿•••┈\n\n💾 Size: {size}</code>"
-        await query.answer()
-        await client.send_cached_media(
-            chat_id=query.from_user.id,
-            file_id=file_id,
-            caption=f_caption,
-            parse_mode="html",
-            protect_content=False,
-            reply_markup=InlineKeyboardMarkup(
-                [
+            f_caption = f"{files.file_name}"
+        f_sub_caption = f"<code>💾 Size: {size}</code>\n\n🌟༺ ──•◈•─ ─•◈•──༻🌟\n<b>➧ പുതിയ സിനിമകൾ / വെബ്‌ സീരീസ് " \
+                        f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🔊 Gʀᴏᴜᴘ: " \
+                        f"@UniversalFilmStudio \n🔊 Gʀᴏᴜᴘ: @UFSWebSeries \n🔊 " \
+                        f"Cʜᴀɴɴᴇʟ: @UFSNewRelease \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
+
+        f_caption = f_caption + f"\n\n{f_sub_caption}"
+        try:
+            await client.send_cached_media(
+                chat_id=query.message.from_user.id,
+                file_id=file_id,
+                caption=f_caption,
+                parse_mode="html",
+                protect_content=FILE_SECURE,
+                reply_markup=InlineKeyboardMarkup(
                     [
-                        InlineKeyboardButton(
-                            '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
-                        ),
-                        InlineKeyboardButton(
-                            '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
-                        )
+                        [
+                            InlineKeyboardButton(
+                                '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                            ),
+                            InlineKeyboardButton(
+                                '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
+                            )
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
+                            )
+                        ]
                     ]
-                ]
+                )
             )
-        )
+        except Exception as e:
+            return await query.message.reply(str(e))
+
     elif query.data == "pages":
         await query.answer()
     elif query.data == "start":
