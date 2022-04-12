@@ -1384,25 +1384,18 @@ async def advantage_spell_chok(client, msg):
     btn = build_keyboard(btn)
 
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ Wᴇʙ Sᴇʀɪᴇs ⭕️", url="https://t.me/UFSWebSeries")
+        InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UniversalFilmStudioo")
     ])
 
-    btn.insert(0, [
-        InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),
-        InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UFSNewRelease")
-    ])
-
-    # btn = [[
-    #                InlineKeyboardButton(
-    #                    text=movie.strip(),
-    #                    callback_data=f"spolling#{user}#{k}",
-    #                )
-    #            ] for k, movie in enumerate(movielist)]
-    # btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
+    # btn.insert(0, [
+    #     InlineKeyboardButton("⭕️ Wᴇʙ Sᴇʀɪᴇs ⭕️", url="https://t.me/UFSWebSeries")
+    # ])
+    #
     # btn.insert(0, [
     #     InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),
     #     InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UFSNewRelease")
     # ])
+
     d_msg = await msg.reply(f"I Couldn't Find Anything Related To That\n"
                             f"എന്താണ്‌ മാഷേ, അയക്കും മുമ്പ്‌ കറക്റ്റ്‌ ആണോ ന്ന് ഒന്ന് ചെക്ക്‌ ചെയ്യ്‌.\n"
                             f"Did You Mean Any One Of These 👇🏻? **You Have 10 Sec To Do Complete This.**",
