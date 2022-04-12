@@ -58,7 +58,7 @@ async def give_filter(client, message):
             if temp.TEMP_USER.get(req):
                 del temp.TEMP_USER[req]
             temp.TEMP_USER[req] = "edit"
-            await asyncio.sleep(5)
+            await asyncio.sleep(10)
             await msg.delete()
             return
         except Exception as e:
