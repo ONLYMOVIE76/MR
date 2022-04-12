@@ -1403,8 +1403,13 @@ async def advantage_spell_chok(client, msg):
     #     InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),
     #     InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UFSNewRelease")
     # ])
-    await msg.reply("I Couldn't Find Anything Related To That\nDid You Mean Any One Of These 👇🏻?",
-                    reply_markup=InlineKeyboardMarkup(btn))
+    d_msg = await msg.reply(f"I Couldn't Find Anything Related To That\n"
+                            f"എന്താണ്‌ മാഷേ, അയക്കും മുമ്പ്‌ കറക്റ്റ്‌ ആണോ ന്ന് ഒന്ന് ചെക്ക്‌ ചെയ്യ്‌.\n"
+                            f"Did You Mean Any One Of These 👇🏻? **You Have 10 Sec To Do Complete This.**",
+                            reply_markup=InlineKeyboardMarkup(btn))
+    await asyncio.sleep(10)
+    await d_msg.delete()
+    await msg.delete()
 
 
 def build_keyboard(buttons):
