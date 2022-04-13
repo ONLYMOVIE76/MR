@@ -629,7 +629,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 try:
                     if file_type not in ["video", 'audio', 'document']:
                         await client.send_cached_media(
-                            chat_id=query.message.from_user.id,
+                            chat_id=query.from_user.id,
                             file_id=msg.get("file_id"),
                             caption=f_caption,
                             protect_content=FILE_SECURE,
@@ -637,7 +637,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         )
                     else:
                         await client.send_cached_media(
-                            chat_id=query.message.from_user.id,
+                            chat_id=query.from_user.id,
                             file_id=msg.get("file_id"),
                             caption=f_caption + f"\n\n{f_sub_caption}",
                             parse_mode="html",
@@ -689,7 +689,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         f_caption = f_caption + f"\n\n{f_sub_caption}"
         try:
             await client.send_cached_media(
-                chat_id=query.message.from_user.id,
+                chat_id=query.from_user.id,
                 file_id=file_id,
                 caption=f_caption,
                 parse_mode="html",
