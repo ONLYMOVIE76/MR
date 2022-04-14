@@ -612,7 +612,6 @@ async def settings(client, message):
     if not userid:
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
-    args = message.text.html.split(None, 1)
 
     if chat_type == "private":
         grpid = await active_connection(str(userid))
@@ -646,13 +645,6 @@ async def settings(client, message):
     msg = await message.reply('Getting List Of Chats..')
 
     b_msg = message.reply_to_message
-
-    if len(args) < 2:
-        await msg.edit_text(
-            "There Are No Message To Send, Please Send Me Message To Send To Connected Chats..",
-            quote=True
-        )
-        return
 
     start_time = time.time()
     await msg.edit_text(
