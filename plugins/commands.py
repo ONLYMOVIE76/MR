@@ -643,6 +643,7 @@ async def settings(client, message):
         return
 
     msg = await message.reply('Getting List Of Chats..', quote=True)
+    await asyncio.sleep(2)
 
     b_msg = message.reply_to_message
 
@@ -663,19 +664,22 @@ async def settings(client, message):
     done = 0
     success = 0
     totl_chats = len(groupids)
-    async for groupid in groupids:
-        try:
-            text, data_type, content, buttons = get_msg_type(b_msg)
-            i += 1
-            ttl = await client.get_chat(int(groupid))
-            title = ttl.title
-            await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
-            success += 1
-            await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
-            await asyncio.sleep(2)
-        except:
-            pass
-        done += 1
+    try:
+        for groupid in groupids:
+            try:
+                text, data_type, content, buttons = get_msg_type(b_msg)
+                i += 1
+                ttl = await client.get_chat(int(groupid))
+                title = ttl.title
+                await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
+                success += 1
+                await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
+                await asyncio.sleep(2)
+            except:
+                pass
+    except Exception as e:
+        await msg.edit_text(str(e))
+        return
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
     await msg.edit_text(
