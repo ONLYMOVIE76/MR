@@ -642,14 +642,13 @@ async def settings(client, message):
     ):
         return
 
-    msg = await message.reply('Getting List Of Chats..')
+    msg = await message.reply('Getting List Of Chats..', quote=True)
 
     b_msg = message.reply_to_message
 
     start_time = time.time()
     await msg.edit_text(
-        text='Please Wait, Broadcasting To Connected Chat Is Starting Soon...', quote=True
-    )
+        text='Please Wait, Broadcasting To Connected Chat Is Starting Soon...')
     await asyncio.sleep(2)
 
     userid = message.from_user.id
@@ -657,9 +656,7 @@ async def settings(client, message):
 
     if groupids is None:
         await msg.edit_text(
-            "There Are No Active Connections!! Connect To Some Groups First.",
-            quote=True
-        )
+            "There Are No Active Connections!! Connect To Some Groups First.")
         return
 
     i = 0
