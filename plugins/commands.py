@@ -606,7 +606,7 @@ async def settings(client, message):
         )
 
 
-@Client.on_message(filters.command('chat') & filters.private & filters.user(ADMINS))
+@Client.on_message(filters.command('gbroadcast') & filters.private & filters.user(ADMINS))
 async def settings(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
