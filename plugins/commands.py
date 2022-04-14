@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import subprocess
@@ -18,10 +19,11 @@ from database.ia_filterdb import Media, get_file_details, unpack_new_file_id
 from database.restart_db import start_restart_stage
 from database.users_chats_db import db
 from info import CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, LOG_CHANNEL, PICS, HELPABLE, FILE_PROTECT
+from plugins.broadcast import send_broadcast_message
 from plugins.misc import paginate_modules
 from database.settings_db import sett_db
-from database.connections_mdb import active_connection
-from utils import get_size, is_subscribed, temp
+from database.connections_mdb import active_connection, all_connections
+from utils import get_size, is_subscribed, temp, split_quotes, get_msg_type
 import re
 
 logger = logging.getLogger(__name__)
@@ -602,3 +604,91 @@ async def settings(client, message):
             parse_mode="html",
             reply_to_message_id=message.message_id
         )
+
+
+@Client.on_message(filters.command('chat') & filters.private & filters.user(ADMINS))
+async def settings(client, message):
+    userid = message.from_user.id if message.from_user else None
+    if not userid:
+        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+    chat_type = message.chat.type
+    args = message.text.html.split(None, 1)
+
+    if chat_type == "private":
+        grpid = await active_connection(str(userid))
+        if grpid is not None:
+            grp_id = grpid
+            try:
+                chat = await client.get_chat(grpid)
+                title = chat.title
+            except:
+                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                return
+        else:
+            await message.reply_text("I'm not connected to any groups!", quote=True)
+            return
+
+    elif chat_type in ["group", "supergroup"]:
+        grp_id = message.chat.id
+        title = message.chat.title
+
+    else:
+        return
+
+    st = await client.get_chat_member(grp_id, userid)
+    if (
+            st.status != "administrator"
+            and st.status != "creator"
+            and str(userid) not in ADMINS
+    ):
+        return
+
+    msg = await message.reply('Getting List Of Chats..')
+
+    b_msg = message.reply_to_message
+
+    if len(args) < 2:
+        await msg.edit_text(
+            "There Are No Message To Send, Please Send Me Message To Send To Connected Chats..",
+            quote=True
+        )
+        return
+
+    start_time = time.time()
+    await msg.edit_text(
+        text='Please Wait, Broadcasting To Connected Chat Is Starting Soon...', quote=True
+    )
+    await asyncio.sleep(2)
+
+    userid = message.from_user.id
+    groupids = await all_connections(str(userid))
+
+    if groupids is None:
+        await msg.edit_text(
+            "There Are No Active Connections!! Connect To Some Groups First.",
+            quote=True
+        )
+        return
+
+    i = 0
+    done = 0
+    success = 0
+    totl_chats = len(groupids)
+    async for groupid in groupids:
+        try:
+            text, data_type, content, buttons = get_msg_type(b_msg)
+            i += 1
+            ttl = await client.get_chat(int(groupid))
+            title = ttl.title
+            await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
+            success += 1
+            await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
+            await asyncio.sleep(2)
+        except:
+            pass
+        done += 1
+
+    time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
+    await msg.edit_text(
+        f"**Broadcast Completed:**\n**Completed in** `{time_taken} seconds.`\n\n**Total Chats** `{totl_chats}`\n"
+        f"**Completed:** `{done} / {totl_chats}`\n**Success:** `{success}`")
