@@ -264,27 +264,28 @@ def button_markdown_parser(txt: str, entities: Dict[MessageEntity, str] = None, 
     prev = 0
     note_data = ""
     buttons = []
-    for match in BTN_URL_REGEX.finditer(txt):
-        # Check if btnurl is escaped
-        n_escapes = 0
-        to_check = match.start(1) - 1
-        while to_check > 0 and txt[to_check] == "\\":
-            n_escapes += 1
-            to_check -= 1
+    if txt:
+        for match in BTN_URL_REGEX.finditer(txt):
+            # Check if btnurl is escaped
+            n_escapes = 0
+            to_check = match.start(1) - 1
+            while to_check > 0 and txt[to_check] == "\\":
+                n_escapes += 1
+                to_check -= 1
 
-        # if even, not escaped -> create button
-        if n_escapes % 2 == 0:
-            # create a thruple with button label, url, and newline status
-            buttons.append((match.group(2), match.group(4), bool(match.group(5))))
-            note_data += txt[prev:match.start(1)]
-            prev = match.end(1)
-        # if odd, escaped -> move along
+            # if even, not escaped -> create button
+            if n_escapes % 2 == 0:
+                # create a thruple with button label, url, and newline status
+                buttons.append((match.group(2), match.group(4), bool(match.group(5))))
+                note_data += txt[prev:match.start(1)]
+                prev = match.end(1)
+            # if odd, escaped -> move along
+            else:
+                note_data += txt[prev:to_check]
+                prev = match.start(1) - 1
         else:
-            note_data += txt[prev:to_check]
-            prev = match.start(1) - 1
-    else:
-        if len(txt) != prev:
-            note_data += txt[prev:]
+            if len(txt) != prev:
+                note_data += txt[prev:]
 
     return note_data, buttons
 
