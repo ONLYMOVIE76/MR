@@ -643,14 +643,14 @@ async def settings(client, message):
         return
 
     msg = await message.reply('Getting List Of Chats..', quote=True)
-    await asyncio.sleep(2)
+    await asyncio.sleep(1)
 
     b_msg = message.reply_to_message
 
     start_time = time.time()
     await msg.edit_text(
         text='Please Wait, Broadcasting To Connected Chat Is Starting Soon...')
-    await asyncio.sleep(2)
+    await asyncio.sleep(1)
 
     userid = message.from_user.id
     groupids = await all_connections(str(userid))
@@ -674,11 +674,11 @@ async def settings(client, message):
                 await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
                 success += 1
                 await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
-                await asyncio.sleep(2)
+                await asyncio.sleep(0.5)
             except:
                 pass
     except Exception as e:
-        await msg.edit_text(str(e))
+        await message.reply(str(e))
         return
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
