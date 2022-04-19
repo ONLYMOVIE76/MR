@@ -600,3 +600,18 @@ def humanbytes(size):
         size /= power
         n += 1
     return str(round(size, 2)) + " " + Dic_powerN[n] + 'B'
+
+
+def build_keyboard_cb_url(buttons):
+    keyb = []
+    for btn in buttons:
+        if btn[2] and keyb and btn[3] == 'cb':
+            keyb[-1].append(InlineKeyboardButton(btn[0], callback_data=btn[1]))
+        elif btn[2] and keyb and btn[3] == 'url':
+            keyb[-1].append(InlineKeyboardButton(btn[0], url=btn[1]))
+        elif btn[3] == 'cb':
+            keyb.append([InlineKeyboardButton(btn[0], callback_data=btn[1])])
+        else:
+            keyb.append([InlineKeyboardButton(btn[0], url=btn[1])])
+
+    return keyb

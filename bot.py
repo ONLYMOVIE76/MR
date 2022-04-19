@@ -61,6 +61,7 @@ class Bot(Client):
                     restart_data["message_id"],
                     "**Restarted Successfully**",
                 )
+                await bot.Bot.send_message(self, LOG_CHANNEL, "**Bot Updated Successfully**!")
 
             else:
                 await bot.Bot.send_message(self, LOG_CHANNEL, "**Bot Restarted Successfully**!")

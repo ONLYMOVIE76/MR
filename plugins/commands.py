@@ -23,7 +23,7 @@ from plugins.broadcast import send_broadcast_message
 from plugins.misc import paginate_modules
 from database.settings_db import sett_db
 from database.connections_mdb import active_connection, all_connections
-from utils import get_size, is_subscribed, temp, split_quotes, get_msg_type
+from utils import get_size, is_subscribed, temp, split_quotes, get_msg_type, build_keyboard_cb_url
 import re
 
 logger = logging.getLogger(__name__)
@@ -86,21 +86,26 @@ async def start(client, message):
         try:
             invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
         except ChatAdminRequired:
-            logger.error("Make sure Bot is admin in Forcesub channel")
+            logger.error("Make sure Bot is admin in Forcesub Channel")
             return
-        btn = [
-            [
-                InlineKeyboardButton(
-                    "🤖 Join Here", url=invite_link.invite_link
-                )
-            ]
-        ]
+
+        btn = []
+        btn.append(["🤖 Join Here", invite_link.invite_link, False, 'url'])
+        # btn = [
+        #     [
+        #         InlineKeyboardButton(
+        #             "🤖 Join Here", url=invite_link.invite_link
+        #         )
+        #     ]
+        # ]
 
         if message.command[1] != "subscribe":
-            btn.append([InlineKeyboardButton(" 🔄 Try Again", callback_data=f"checksub#{message.command[1]}")])
+            btn.append(["🔄 Try Again", f"checksub#{message.command[1]}", True, 'cb'])
+            # btn.append([InlineKeyboardButton(" 🔄 Try Again", callback_data=f"checksub#{message.command[1]}")])
+        btn = build_keyboard_cb_url(btn)
         await client.send_message(
             chat_id=message.from_user.id,
-            text="**Please Join Here To Use This Bot!**",
+            text="**Please Join Below Channel And Click On Try Again Button!**",
             reply_markup=InlineKeyboardMarkup(btn)
         )
         return
