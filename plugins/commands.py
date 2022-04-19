@@ -675,7 +675,8 @@ async def settings(client, message):
                 success += 1
                 await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
                 await asyncio.sleep(0.5)
-            except:
+            except Exception as e:
+                await message.reply(str(e))
                 pass
     except Exception as e:
         await message.reply(str(e))
