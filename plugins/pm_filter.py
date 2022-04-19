@@ -585,10 +585,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         # files_ = await get_file_details(file_id)
 
         settings = None
-        if FILE_PROTECT.get(query.message.from_user.id):
-            grpid = FILE_PROTECT.get(query.message.from_user.id)
+        if FILE_PROTECT.get(query.from_user.id):
+            grpid = FILE_PROTECT.get(query.from_user.id)
             settings = await sett_db.get_settings(str(grpid))
-            del FILE_PROTECT[query.message.from_user.id]
+            del FILE_PROTECT[query.from_user.id]
         # FILE_PROTECT[message.from_user.id] = str(message.chat.id)
 
         if not settings:
@@ -627,6 +627,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
                 # f_caption + f"\n\n<code>┈•••✿ @UniversalFilmStudio ✿•••┈\n\n💾 Size: {size}</code>"
                 try:
+                    await query.message.delete()
                     if file_type not in ["video", 'audio', 'document']:
                         await client.send_cached_media(
                             chat_id=query.from_user.id,
@@ -688,6 +689,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         f_caption = f_caption + f"\n\n{f_sub_caption}"
         try:
+            await query.message.delete()
             await client.send_cached_media(
                 chat_id=query.from_user.id,
                 file_id=file_id,
