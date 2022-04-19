@@ -669,7 +669,7 @@ async def settings(client, message):
             try:
                 text, data_type, content, buttons = get_msg_type(b_msg)
                 i += 1
-                ttl = await client.get_chat(int(groupid))
+                ttl = await client.get_chat(str(groupid))
                 title = ttl.title
                 await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
                 success += 1
