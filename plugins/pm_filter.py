@@ -259,7 +259,7 @@ async def next_page(bot, query):
         )
 
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ Wᴇʙ Sᴇʀɪᴇs ⭕️", url="https://t.me/UFSWebSeries")
+        InlineKeyboardButton("⭕️ Nᴇᴡ Uᴘᴅᴀᴛᴇs ⭕️", url="https://t.me/UFSFilmUpdate")
     ])
 
     btn.insert(0, [
@@ -556,7 +556,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         [
                             [
                                 InlineKeyboardButton(
-                                    '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                                    '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
                                 ),
                                 InlineKeyboardButton(
                                     '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
@@ -647,7 +647,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                 [
                                     [
                                         InlineKeyboardButton(
-                                            '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                                            '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
                                         ),
                                         InlineKeyboardButton(
                                             '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
@@ -700,7 +700,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     [
                         [
                             InlineKeyboardButton(
-                                '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                                '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
                             ),
                             InlineKeyboardButton(
                                 '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
@@ -1269,7 +1269,7 @@ async def auto_filter(client, msg, spoll=False):
         ]
 
         for file in files:
-            if any(x in str(file.file_name) for x in ["PreDVD", "Scr"]):
+            if any(x.lower() in str(file.file_name).lower() for x in ["PreDVD", "CAM", "Scr"]):
                 Quality = "List Contains PreDVDRip/ScrRip"
                 break
             else:
@@ -1289,7 +1289,7 @@ async def auto_filter(client, msg, spoll=False):
         )
 
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ Wᴇʙ Sᴇʀɪᴇs ⭕️", url="https://t.me/UFSWebSeries")
+        InlineKeyboardButton("⭕️ Nᴇᴡ Uᴘᴅᴀᴛᴇs ⭕️", url="https://t.me/UFSFilmUpdate")
     ])
     btn.insert(0, [
         InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),

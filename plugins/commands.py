@@ -191,7 +191,7 @@ async def start(client, message):
                             [
                                 [
                                     InlineKeyboardButton(
-                                        '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                                        '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
                                     ),
                                     InlineKeyboardButton(
                                         '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
@@ -278,7 +278,7 @@ async def start(client, message):
                 [
                     [
                         InlineKeyboardButton(
-                            '🎭 Wᴇʙ Sᴇʀɪᴇs', url="https://t.me/UFSWebSeries"
+                            '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
                         ),
                         InlineKeyboardButton(
                             '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
