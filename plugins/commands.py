@@ -513,7 +513,7 @@ def send_help(client, chat_id, text, keyboard=None):
                         reply_markup=keyboard)
 
 
-@Client.on_message(filters.command('settings') & filters.private)
+@Client.on_message(filters.command('setting') & filters.private)
 async def settings(client, message):
     try:
         userid = message.from_user.id if message.from_user else None
