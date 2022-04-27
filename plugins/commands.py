@@ -513,7 +513,7 @@ def send_help(client, chat_id, text, keyboard=None):
                         reply_markup=keyboard)
 
 
-@Client.on_message(filters.command('setting') & filters.private)
+@Client.on_message(filters.command('settings') & filters.private)
 async def settings(client, message):
     try:
         userid = message.from_user.id if message.from_user else None
@@ -615,7 +615,7 @@ async def settings(client, message):
 
 
 @Client.on_message(filters.command('gbroadcast') & filters.private & filters.user(ADMINS))
-async def settings(client, message):
+async def gp_broadcast(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
