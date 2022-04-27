@@ -601,14 +601,16 @@ async def settings(client, message):
             ]
         ]
         reply_markup = InlineKeyboardMarkup(buttons)
-
-        await message.reply_text(
-            text=f"<b>Change Your Filter Settings As Your Wish ⚙\n\nThis Settings For Group</b> <code>{title}</code>",
-            reply_markup=reply_markup,
-            disable_web_page_preview=True,
-            parse_mode="html",
-            reply_to_message_id=message.message_id
-        )
+        try:
+            await message.reply_text(
+                text=f"<b>Change Your Filter Settings As Your Wish ⚙\n\nThis Settings For Group</b> <code>{title}</code>",
+                reply_markup=reply_markup,
+                disable_web_page_preview=True,
+                reply_to_message_id=message.message_id
+            )
+        except Exception as e:
+            await message.reply_text(str(e))
+            return
 
 
 @Client.on_message(filters.command('gbroadcast') & filters.private & filters.user(ADMINS))
