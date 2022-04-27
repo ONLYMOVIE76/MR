@@ -515,102 +515,103 @@ def send_help(client, chat_id, text, keyboard=None):
 
 @Client.on_message(filters.command('settings') & filters.private)
 async def settings(client, message):
-    userid = message.from_user.id if message.from_user else None
-    if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
-    chat_type = message.chat.type
-    args = message.text.html.split(None, 1)
+    try:
+        userid = message.from_user.id if message.from_user else None
+        if not userid:
+            return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+        chat_type = message.chat.type
+        args = message.text.html.split(None, 1)
 
-    if chat_type == "private":
-        grpid = await active_connection(str(userid))
-        if grpid is not None:
-            grp_id = grpid
-            try:
-                chat = await client.get_chat(grpid)
-                title = chat.title
-            except:
-                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+        if chat_type == "private":
+            grpid = await active_connection(str(userid))
+            if grpid is not None:
+                grp_id = grpid
+                try:
+                    chat = await client.get_chat(grpid)
+                    title = chat.title
+                except:
+                    await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                    return
+            else:
+                await message.reply_text("I'm not connected to any groups!", quote=True)
                 return
+
+        elif chat_type in ["group", "supergroup"]:
+            grp_id = message.chat.id
+            title = message.chat.title
+
         else:
-            await message.reply_text("I'm not connected to any groups!", quote=True)
             return
 
-    elif chat_type in ["group", "supergroup"]:
-        grp_id = message.chat.id
-        title = message.chat.title
+        st = await client.get_chat_member(grp_id, userid)
+        if (
+                st.status != "administrator"
+                and st.status != "creator"
+                and str(userid) not in ADMINS
+        ):
+            return
 
-    else:
-        return
+        if not await sett_db.is_settings_exist(str(grp_id)):
+            await sett_db.add_settings(str(grp_id), True, 120)
 
-    st = await client.get_chat_member(grp_id, userid)
-    if (
-            st.status != "administrator"
-            and st.status != "creator"
-            and str(userid) not in ADMINS
-    ):
-        return
+        settings = await sett_db.get_settings(str(grp_id))
 
-    if not await sett_db.is_settings_exist(str(grp_id)):
-        await sett_db.add_settings(str(grp_id), True, 120)
-
-    settings = await sett_db.get_settings(str(grp_id))
-
-    if settings is not None:
-        buttons = [
-            [
-                InlineKeyboardButton('Fɪʟᴛᴇʀ Bᴜᴛᴛᴏɴ',
-                                     callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('Sɪɴɢʟᴇ' if settings["button"] else 'Dᴏᴜʙʟᴇ',
-                                     callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}#{settings["delete_time"]}')
-            ],
-            [
-                InlineKeyboardButton('Bᴏᴛ PM',
-                                     callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yᴇs' if settings["botpm"] else '❌ Nᴏ',
-                                     callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}#{settings["delete_time"]}')
-            ],
-            [
-                InlineKeyboardButton('Fɪʟᴇ Sᴇᴄᴜʀᴇ',
-                                     callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yᴇs' if settings["file_secure"] else '❌ Nᴏ',
-                                     callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}#{settings["delete_time"]}')
-            ],
-            [
-                InlineKeyboardButton('Iᴍᴅʙ',
-                                     callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yᴇs' if settings["imdb"] else '❌ Nᴏ',
-                                     callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}#{settings["delete_time"]}')
-            ],
-            [
-                InlineKeyboardButton('Sᴘᴇʟʟ Cʜᴇᴄᴋ',
-                                     callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yᴇs' if settings["spell_check"] else '❌ Nᴏ',
-                                     callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}#{settings["delete_time"]}')
-            ],
-            [
-                InlineKeyboardButton('Aᴜᴛᴏ Dᴇʟᴇᴛᴇ',
-                                     callback_data=f'setgs#delete#{settings["auto_delete"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton(f'{settings["delete_time"]} Sᴇᴄ' if settings["auto_delete"] else '❌ Nᴏ',
-                                     callback_data=f'setgs#delete#{settings["auto_delete"]}#{str(grp_id)}#{settings["delete_time"]}')
-            ],
-            [
-                InlineKeyboardButton('Wᴇʟᴄᴏᴍᴇ',
-                                     callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}#{settings["delete_time"]}'),
-                InlineKeyboardButton('✅ Yᴇs' if settings["welcome"] else '❌ Nᴏ',
-                                     callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}#{settings["delete_time"]}')
+        if settings is not None:
+            buttons = [
+                [
+                    InlineKeyboardButton('Fɪʟᴛᴇʀ Bᴜᴛᴛᴏɴ',
+                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton('Sɪɴɢʟᴇ' if settings["button"] else 'Dᴏᴜʙʟᴇ',
+                                         callback_data=f'setgs#button#{settings["button"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ],
+                [
+                    InlineKeyboardButton('Bᴏᴛ PM',
+                                         callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton('✅ Yᴇs' if settings["botpm"] else '❌ Nᴏ',
+                                         callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ],
+                [
+                    InlineKeyboardButton('Fɪʟᴇ Sᴇᴄᴜʀᴇ',
+                                         callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton('✅ Yᴇs' if settings["file_secure"] else '❌ Nᴏ',
+                                         callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ],
+                [
+                    InlineKeyboardButton('Iᴍᴅʙ',
+                                         callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton('✅ Yᴇs' if settings["imdb"] else '❌ Nᴏ',
+                                         callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ],
+                [
+                    InlineKeyboardButton('Sᴘᴇʟʟ Cʜᴇᴄᴋ',
+                                         callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton('✅ Yᴇs' if settings["spell_check"] else '❌ Nᴏ',
+                                         callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ],
+                [
+                    InlineKeyboardButton('Aᴜᴛᴏ Dᴇʟᴇᴛᴇ',
+                                         callback_data=f'setgs#delete#{settings["auto_delete"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton(f'{settings["delete_time"]} Sᴇᴄ' if settings["auto_delete"] else '❌ Nᴏ',
+                                         callback_data=f'setgs#delete#{settings["auto_delete"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ],
+                [
+                    InlineKeyboardButton('Wᴇʟᴄᴏᴍᴇ',
+                                         callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}#{settings["delete_time"]}'),
+                    InlineKeyboardButton('✅ Yᴇs' if settings["welcome"] else '❌ Nᴏ',
+                                         callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}#{settings["delete_time"]}')
+                ]
             ]
-        ]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        try:
+            reply_markup = InlineKeyboardMarkup(buttons)
+
             await message.reply_text(
                 text=f"<b>Change Your Filter Settings As Your Wish ⚙\n\nThis Settings For Group</b> <code>{title}</code>",
                 reply_markup=reply_markup,
                 disable_web_page_preview=True,
                 reply_to_message_id=message.message_id
             )
-        except Exception as e:
-            await message.reply_text(str(e))
-            return
+    except Exception as e:
+        await message.reply_text(str(e))
+        return
 
 
 @Client.on_message(filters.command('gbroadcast') & filters.private & filters.user(ADMINS))
