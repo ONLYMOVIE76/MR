@@ -500,7 +500,7 @@ async def start111(client: Client, message):
 
 async def restart(message):
     if message:
-        await start_restart_stage(message.chat.id, message.message_id)
+        await start_restart_stage(message.chat.id, message.id)
     os.execvp(sys.executable, [sys.executable, "main.py"])
 
 
@@ -607,7 +607,7 @@ async def settings(client, message):
                 text=f"<b>Change Your Filter Settings As Your Wish ⚙\n\nThis Settings For Group</b> <code>{title}</code>",
                 reply_markup=reply_markup,
                 disable_web_page_preview=True,
-                reply_to_message_id=message.message_id
+                reply_to_message_id=message.id
             )
     except Exception as e:
         await message.reply_text(str(e))

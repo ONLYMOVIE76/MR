@@ -55,7 +55,7 @@ async def get_message_id(client, message, fwd_channel_id):
         else:
             return 0
     elif message.via_bot:
-        return message.message_id
+        return message.id
     elif message.forward_sender_name:
         return 0
     elif message.text:

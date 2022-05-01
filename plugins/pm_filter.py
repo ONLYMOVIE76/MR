@@ -286,7 +286,7 @@ async def advantage_spoll_choker(bot, query):
                                   show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
-    movies = SPELL_CHECK.get(query.message.reply_to_message.message_id)
+    movies = SPELL_CHECK.get(query.message.reply_to_message.id)
     if not movies:
         return await query.answer("You Are Clicking On An Old Button Which Is Expired.", show_alert=True)
     movie = movies[(int(movie_))]
@@ -888,7 +888,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
         )
         await asyncio.sleep(5)
-        await client.request_callback_answer(query.message.chat.id, query.message.message_id, "help")
+        await client.request_callback_answer(query.message.chat.id, query.message.id, "help")
     elif query.data == "rfrsh":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [
@@ -1079,7 +1079,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         # ensure no spinny white circle
         await client.answer_callback_query(query.id)
         # await query.message.delete()
-        # bot.delete_message(update.effective_chat.id, update.effective_message.message_id - 1)
+        # bot.delete_message(update.effective_chat.id, update.effective_message.id - 1)
     except BadRequest as excp:
         if excp.message == "Message Is Not Modified":
             pass
@@ -1210,7 +1210,7 @@ async def auto_filter(client, msg, spoll=False):
                                 f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
                                 f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
                         parse_mode="html",
-                        reply_to_message_id=msg.message_id
+                        reply_to_message_id=msg.id
                     )
                     await asyncio.sleep(15)  # in seconds
                     await Send_message.delete()
@@ -1232,7 +1232,7 @@ async def auto_filter(client, msg, spoll=False):
         for keyword in reversed(sorted(keywords, key=len)):
             pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
             if re.search(pattern, search, flags=re.IGNORECASE):
-                await check_manual_filter(client, message.chat.id, keyword, message, msg.message.message_id)
+                await check_manual_filter(client, message.chat.id, keyword, message, msg.message.id)
                 # await msg.message.delete()
                 return
 
@@ -1276,7 +1276,7 @@ async def auto_filter(client, msg, spoll=False):
                 Quality = "HDRip/WebRip"
 
     if offset != "":
-        key = f"{message.chat.id}-{message.message_id}"
+        key = f"{message.chat.id}-{message.id}"
         BUTTONS[key] = search
         req = message.from_user.id if message.from_user else 0
         btn.append(
@@ -1366,7 +1366,7 @@ async def auto_filter(client, msg, spoll=False):
                 caption=cap,
                 reply_markup=InlineKeyboardMarkup(btn),
                 parse_mode="html",
-                reply_to_message_id=msg.message_id)
+                reply_to_message_id=msg.id)
 
             # if AUTO_DELETE:
             #     await asyncio.sleep(int(DELETE_TIME))
@@ -1380,7 +1380,7 @@ async def auto_filter(client, msg, spoll=False):
             caption=cap,
             reply_markup=InlineKeyboardMarkup(btn),
             parse_mode="html",
-            reply_to_message_id=msg.message_id)
+            reply_to_message_id=msg.id)
     if spoll:
         await msg.message.delete()
 
@@ -1406,7 +1406,7 @@ async def advantage_spell_chok(client, msg):
                     f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
             parse_mode="html",
-            reply_to_message_id=msg.message_id
+            reply_to_message_id=msg.id
         )
         await asyncio.sleep(15)  # in seconds
         await Send_message.delete()
@@ -1447,7 +1447,7 @@ async def advantage_spell_chok(client, msg):
                     f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
             parse_mode="html",
-            reply_to_message_id=msg.message_id
+            reply_to_message_id=msg.id
         )
         await asyncio.sleep(15)  # in seconds
         await Send_message.delete()
@@ -1456,7 +1456,7 @@ async def advantage_spell_chok(client, msg):
         # await asyncio.sleep(8)
         # await k.delete()
         return
-    SPELL_CHECK[msg.message_id] = movielist
+    SPELL_CHECK[msg.id] = movielist
     i = 1
     pre_len = {}
     btn = []

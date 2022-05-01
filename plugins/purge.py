@@ -28,8 +28,8 @@ async def purge(client, message):
 
     if message.reply_to_message:
         for a_s_message_id in range(
-            message.reply_to_message.message_id,
-            message.message_id
+            message.reply_to_message.id,
+            message.id
         ):
             message_ids.append(a_s_message_id)
             if len(message_ids) == TG_MAX_MSG_SELECT:
