@@ -3,7 +3,7 @@ import asyncio
 import logging.config
 
 import pyromod.listen
-from pyrogram import Client, __version__
+from pyrogram import Client, __version__, enums
 from pyrogram.raw.all import layer
 
 import bot
@@ -24,7 +24,7 @@ class Bot(Client):
 
     def __init__(self):
         super().__init__(
-            session_name=SESSION,
+            name=SESSION,
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
@@ -39,7 +39,7 @@ class Bot(Client):
         temp.BANNED_CHATS = b_chats
         await super().start()
         await Media.ensure_indexes()
-        self.set_parse_mode()
+        self.set_parse_mode(enums.ParseMode.DEFAULT)
         me = await self.get_me()
         temp.ME = me.id
         temp.U_NAME = me.username
