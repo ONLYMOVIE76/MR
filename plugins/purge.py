@@ -12,7 +12,7 @@ from plugins.custom_filter import f_onw_fliter
 @Client.on_message(filters.command(["purge"]) & f_onw_fliter)
 async def purge(client, message):
     """ purge upto the replied message """
-    if message.chat.type not in ("supergroup", "channel"):
+    if message.chat.type not in ("SUPERGROUP", "CHANNEL"):
         # https://t.me/c/1312712379/84174
         return
 

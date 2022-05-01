@@ -27,7 +27,7 @@ logger.setLevel(logging.ERROR)
 @Client.on_message(filters.command('id'))
 async def showid(client, message):
     chat_type = message.chat.type
-    if chat_type == "private":
+    if chat_type == "PRIVATE":
         user_id = message.chat.id
         first = message.from_user.first_name
         last = message.from_user.last_name or ""
@@ -38,7 +38,7 @@ async def showid(client, message):
             quote=True
         )
 
-    elif chat_type in ["group", "supergroup"]:
+    elif chat_type in ["GROUP", "SUPERGROUP"]:
         _id = ""
         _id += (
             "<b>➲ Chat ID</b>: "
@@ -97,7 +97,7 @@ async def who_is(client, message):
     message_out_str += f"<b>➲Data Centre:</b> <code>{dc_id}</code>\n"
     message_out_str += f"<b>➲User Name:</b> @{username}\n"
     message_out_str += f"<b>➲User 𝖫𝗂𝗇𝗄:</b> <a href='tg://user?id={from_user.id}'><b>Click Here</b></a>\n"
-    if message.chat.type in ("supergroup", "channel"):
+    if message.chat.type in ("SUPERGROUP", "CHANNEL"):
         try:
             chat_member_p = await message.chat.get_member(from_user.id)
             joined_date = datetime.fromtimestamp(

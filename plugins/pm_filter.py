@@ -116,7 +116,7 @@ async def give_filter_edited(client, message):
     chat_type = message.sender_chat.type if message.sender_chat else None
     name = message.text
 
-    if chat_type in ["channel"]:
+    if chat_type in ["CHANNEL"]:
         text = f"""
 #DETECT_SENDER_AS_CHANNEL
 
@@ -318,7 +318,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         userid = query.from_user.id
         chat_type = query.message.chat.type
 
-        if chat_type == "private":
+        if chat_type == "PRIVATE":
             grpid = await active_connection(str(userid))
             if grpid is not None:
                 grp_id = grpid
@@ -335,7 +335,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 )
                 return
 
-        elif chat_type in ["group", "supergroup"]:
+        elif chat_type in ["GROUP", "SUPERGROUP"]:
             grp_id = query.message.chat.id
             title = query.message.chat.title
 
@@ -351,11 +351,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
         userid = query.from_user.id
         chat_type = query.message.chat.type
 
-        if chat_type == "private":
+        if chat_type == "PRIVATE":
             await query.message.reply_to_message.delete()
             await query.message.delete()
 
-        elif chat_type in ["group", "supergroup"]:
+        elif chat_type in ["GROUP", "SUPERGROUP"]:
             grp_id = query.message.chat.id
             st = await client.get_chat_member(grp_id, userid)
             if (st.status == "creator") or (str(userid) in ADMINS):
