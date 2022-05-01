@@ -18,7 +18,7 @@ async def addconnection(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         try:
             cmd, group_id = message.text.split(" ", 1)
         except:
@@ -30,7 +30,7 @@ async def addconnection(client, message):
             )
             return
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         group_id = message.chat.id
 
     try:
@@ -63,7 +63,7 @@ async def addconnection(client, message):
                     quote=True,
                     parse_mode="md"
                 )
-                if chat_type in ["GROUP", "SUPERGROUP"]:
+                if chat_type.name in ["GROUP", "SUPERGROUP"]:
                     await client.send_message(
                         userid,
                         f"Connected to **{title}** !",
@@ -91,10 +91,10 @@ async def deleteconnection(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == "PRIAVTE":
+    if chat_type.name == "PRIAVTE":
         await message.reply_text("Run /connections to view or disconnect from groups!", quote=True)
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         group_id = message.chat.id
 
         st = await client.get_chat_member(group_id, userid)

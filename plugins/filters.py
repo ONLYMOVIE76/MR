@@ -21,7 +21,7 @@ async def addfilter(client, message):
     chat_type = message.chat.type
     args = message.text.html.split(None, 1)
 
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
@@ -35,7 +35,7 @@ async def addfilter(client, message):
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         grp_id = message.chat.id
         title = message.chat.title
 
@@ -126,7 +126,7 @@ async def get_all(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
-    if chat_type == "PRIAVTE":
+    if chat_type.name == "PRIAVTE":
         userid = message.from_user.id
         grpid = await active_connection(str(userid))
         if grpid is not None:
@@ -141,7 +141,7 @@ async def get_all(client, message):
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         grp_id = message.chat.id
         title = message.chat.title
 
@@ -191,7 +191,7 @@ async def deletefilter(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
@@ -204,7 +204,7 @@ async def deletefilter(client, message):
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         grp_id = message.chat.id
         title = message.chat.title
 
@@ -251,7 +251,7 @@ async def delallconfirm(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
@@ -265,7 +265,7 @@ async def delallconfirm(client, message):
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         grp_id = message.chat.id
         title = message.chat.title
 

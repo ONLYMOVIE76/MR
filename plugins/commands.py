@@ -33,7 +33,7 @@ BATCH_FILES = {}
 
 @Client.on_message(filters.command("start") & filters.incoming)    # & ~filters.edited
 async def start(client, message):
-    if message.chat.type in ['GROUP', 'SUPERGROUP']:
+    if message.chat.type.name in ['GROUP', 'SUPERGROUP']:
         if message.from_user.id in ADMINS:
             buttons = [
                 [
@@ -523,7 +523,7 @@ async def settings(client, message):
         chat_type = message.chat.type
         args = message.text.html.split(None, 1)
 
-        if chat_type == "PRIVATE":
+        if chat_type.name == "PRIVATE":
             grpid = await active_connection(str(userid))
             if grpid is not None:
                 grp_id = grpid
@@ -537,7 +537,7 @@ async def settings(client, message):
                 await message.reply_text("I'm not connected to any groups!", quote=True)
                 return
 
-        elif chat_type in ["GROUP", "SUPERGROUP"]:
+        elif chat_type.name in ["GROUP", "SUPERGROUP"]:
             grp_id = message.chat.id
             title = message.chat.title
 
@@ -623,7 +623,7 @@ async def gp_broadcast(client, message):
             return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
         chat_type = message.chat.type
 
-        if chat_type == "PRIVATE":
+        if chat_type.name == "PRIVATE":
             grpid = await active_connection(str(userid))
             if grpid is not None:
                 grp_id = grpid
@@ -637,7 +637,7 @@ async def gp_broadcast(client, message):
                 await message.reply_text("I'm not connected to any groups!", quote=True)
                 return
 
-        elif chat_type in ["GROUP", "SUPERGROUP"]:
+        elif chat_type.name in ["GROUP", "SUPERGROUP"]:
             grp_id = message.chat.id
             title = message.chat.title
 

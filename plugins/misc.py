@@ -27,7 +27,7 @@ logger.setLevel(logging.ERROR)
 @Client.on_message(filters.command('id'))
 async def showid(client, message):
     chat_type = message.chat.type
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         user_id = message.chat.id
         first = message.from_user.first_name
         last = message.from_user.last_name or ""
@@ -38,7 +38,7 @@ async def showid(client, message):
             quote=True
         )
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         _id = ""
         _id += (
             "<b>➲ Chat ID</b>: "

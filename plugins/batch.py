@@ -27,7 +27,7 @@ async def gen_link_s(client: Client, message):
     chat_type = message.chat.type
     args = message.text.html.split(None, 1)
 
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
@@ -41,7 +41,7 @@ async def gen_link_s(client: Client, message):
             await message.reply_text("I'm Not Connected To Any Groups!", quote=True)
             return
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         grp_id = message.chat.id
         title = message.chat.title
 
@@ -120,7 +120,7 @@ async def gen_link_batch(bot, message):
     chat_type = message.chat.type
     args = message.text.html.split(None, 1)
 
-    if chat_type == "PRIVATE":
+    if chat_type.name == "PRIVATE":
         grpid = await active_connection(str(userid))
         if grpid is not None:
             grp_id = grpid
@@ -134,7 +134,7 @@ async def gen_link_batch(bot, message):
             await message.reply_text("I'm Not Connected To Any Groups!", quote=True)
             return
 
-    elif chat_type in ["GROUP", "SUPERGROUP"]:
+    elif chat_type.name in ["GROUP", "SUPERGROUP"]:
         grp_id = message.chat.id
         title = message.chat.title
 
@@ -349,7 +349,7 @@ async def gen_link_batch(bot, message):
 #     chat_type = message.chat.type
 #     args = message.text.html.split(None, 1)
 #
-#     if chat_type == "PRIVATE":
+#     if chat_type.name == "PRIVATE":
 #         grpid = await active_connection(str(userid))
 #         if grpid is not None:
 #             grp_id = grpid
@@ -363,7 +363,7 @@ async def gen_link_batch(bot, message):
 #             await message.reply_text("I'm not connected to any groups!", quote=True)
 #             return
 #
-#     elif chat_type in ["GROUP", "SUPERGROUP"]:
+#     elif chat_type.name in ["GROUP", "SUPERGROUP"]:
 #         grp_id = message.chat.id
 #         title = message.chat.title
 #
@@ -502,7 +502,7 @@ async def gen_link_batch(bot, message):
 #     chat_type = message.chat.type
 #     args = message.text.html.split(None, 1)
 #
-#     if chat_type == "PRIVATE":
+#     if chat_type.name == "PRIVATE":
 #         grpid = await active_connection(str(userid))
 #         if grpid is not None:
 #             grp_id = grpid
@@ -516,7 +516,7 @@ async def gen_link_batch(bot, message):
 #             await message.reply_text("I'm not connected to any groups!", quote=True)
 #             return
 #
-#     elif chat_type in ["GROUP", "SUPERGROUP"]:
+#     elif chat_type.name in ["GROUP", "SUPERGROUP"]:
 #         grp_id = message.chat.id
 #         title = message.chat.title
 #
