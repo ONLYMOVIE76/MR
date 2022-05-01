@@ -114,8 +114,7 @@ async def addfilter(client, message):
         f"Filter For  `{text}`  Added In  **Globally** By [{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         "\n\nNote:- If You Add Any Theater Print On Manual Filter, "
         "Moderators Will Review And Delete The Filter",  # {title}
-        quote=True,
-        parse_mode="md"
+        quote=True
     )
     await filter.copy(LOG_CHANNEL)
 
@@ -179,8 +178,7 @@ async def get_all(client, message):
 
     await message.reply_text(
         text=filterlist,
-        quote=True,
-        parse_mode="md"
+        quote=True
     )
 
 
@@ -224,7 +222,6 @@ async def deletefilter(client, message):
                                          ]
                                      ]
                                  ),
-                                 parse_mode="md",
                                  quote=True)
         return
 

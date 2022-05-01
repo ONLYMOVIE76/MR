@@ -276,8 +276,7 @@ async def unlock(client, message):
                     try:
                         return await client.send_message(LOG_CHANNEL, log)
                     except ChatAdminRequired:
-                        await message.reply_text("Log Channel Error, Should Be Log Channel Admin With Write Permission",
-                                                 parse_mode="md")
+                        await message.reply_text("Log Channel Error, Should Be Log Channel Admin With Write Permission")
                         return
                 else:
                     return

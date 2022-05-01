@@ -60,14 +60,12 @@ async def addconnection(client, message):
             if addcon:
                 await message.reply_text(
                     f"Successfully connected to **{title}**\nNow manage your group from my pm !",
-                    quote=True,
-                    parse_mode="md"
+                    quote=True
                 )
                 if chat_type.name in ["GROUP", "SUPERGROUP"]:
                     await client.send_message(
                         userid,
-                        f"Connected to **{title}** !",
-                        parse_mode="md"
+                        f"Connected to **{title}** !"
                     )
             else:
                 await message.reply_text(

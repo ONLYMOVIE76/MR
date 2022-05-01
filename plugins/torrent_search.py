@@ -51,7 +51,6 @@ async def torrent(_, message):
                 ]
             ]
         ),
-        parse_mode="markdown",
     )
 
 
@@ -112,7 +111,6 @@ async def callback_query_previous(_, message):
                 ]
             ]
         ),
-        parse_mode="markdown",
     )
 
 

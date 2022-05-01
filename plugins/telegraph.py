@@ -29,8 +29,7 @@ async def getmedia(client, update):
     #         text="**Iғ Yᴏᴜ Wᴀɴᴛ Tᴏ Usᴇ Tʜɪs Bᴏᴛ, Yᴏᴜ Mᴜsᴛ Jᴏɪɴ Tʜᴇ Cʜᴀɴɴᴇʟ.\n"
     #              "Because I Am Providing You Completely Free To Use The Bot\n\n"
     #              "Please Join My Updates Channel To Use This Bot!**",
-    #         reply_markup=InlineKeyboardMarkup(btn),
-    #         parse_mode="markdown"
+    #         reply_markup=InlineKeyboardMarkup(btn)
     #     )
     #     return
 

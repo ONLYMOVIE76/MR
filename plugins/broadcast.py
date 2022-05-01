@@ -42,8 +42,7 @@ async def verupikkals(bot, message):
                 await sts.edit_text(f"**Broadcast Successfully Completed** `{i}/{total_users}`"
                                     f"\n**Total Blocked By User** `{b}`"
                                     f"\n**Total Inactive User** `{ia}`"
-                                    f"\n**Total Bot As User** `{ub}`",
-                                    parse_mode="markdown")
+                                    f"\n**Total Bot As User** `{ub}`")
                 success += 1
                 await send_broadcast_message(user['id'], text, data_type, content, buttons, bot, message)
             except FloodWait as e:
@@ -51,8 +50,7 @@ async def verupikkals(bot, message):
                 await sts.edit_text(f"**Broadcast Successfully Completed** `{i}/{total_users}`"
                                     f"\n**Total Blocked By User** `{b}`"
                                     f"\n**Total Inactive User** `{ia}`"
-                                    f"\n**Total Bot As User** `{ub}`",
-                                    parse_mode="markdown")
+                                    f"\n**Total Bot As User** `{ub}`")
                 success += 1
                 await send_broadcast_message(user['id'], text, data_type, content, buttons, bot, message)
             except UserIsBlocked:
@@ -62,8 +60,7 @@ async def verupikkals(bot, message):
                 await sts.edit_text(f"**Broadcast Successfully Completed** `{i}/{total_users}`"
                                     f"\n**Total Blocked By User** `{b}`"
                                     f"\n**Total Inactive User** `{ia}`"
-                                    f"\n**Total Bot As User** `{ub}`",
-                                    parse_mode="markdown")
+                                    f"\n**Total Bot As User** `{ub}`")
                 pass
             except InputUserDeactivated:
                 ia += 1
@@ -73,16 +70,14 @@ async def verupikkals(bot, message):
                 await sts.edit_text(f"**Broadcast Successfully Completed** `{i}/{total_users}`"
                                     f"\n**Total Blocked By User** `{b}`"
                                     f"\n**Total Inactive User** `{ia}`"
-                                    f"\n**Total Bot As User** `{ub}`",
-                                    parse_mode="markdown")
+                                    f"\n**Total Bot As User** `{ub}`")
                 pass
             except UserIsBot:
                 ub += 1
                 await sts.edit_text(f"**Broadcast Successfully Completed** `{i}/{total_users}`"
                                     f"\n**Total Blocked By User** `{b}`"
                                     f"\n**Total Inactive User** `{ia}`"
-                                    f"\n**Total Bot As User** `{ub}`",
-                                    parse_mode="markdown")
+                                    f"\n**Total Bot As User** `{ub}`")
                 pass
             except PeerIdInvalid:
                 await db.delete_user(int(user['id']))
@@ -138,32 +133,30 @@ async def send_broadcast_message(user_id, text, data_type, content, buttons, cli
         keyboard = InlineKeyboardMarkup(keyb)
 
         if data_type == Types.BUTTON_PHOTO:
-            await client.send_photo(user_id, content, caption=text, reply_markup=keyboard, parse_mode="markdown")
+            await client.send_photo(user_id, content, caption=text, reply_markup=keyboard)
         elif data_type == Types.PHOTO:
-            await client.send_photo(user_id, content, caption=text, parse_mode="markdown")
+            await client.send_photo(user_id, content, caption=text)
         else:
             # send(client, job.s_chat_id, msg_text, keyboard, "Hey Dear, how are you?")
             try:
                 if len(keyboard.inline_keyboard) > 0:
-                    await client.send_message(chat_id=user_id, text=text, parse_mode="markdown",
+                    await client.send_message(chat_id=user_id, text=text,
                                               reply_markup=keyboard,
                                               disable_web_page_preview=True)
                 else:
-                    await client.send_message(chat_id=user_id, text=text, parse_mode="markdown",
+                    await client.send_message(chat_id=user_id, text=text,
                                               disable_web_page_preview=True)
             except IndexError:
                 await message.reply_text(markdown_parser("Hey Dear, how are you?" +
                                                          "\nNote: The Current Message Was "
                                                          "Invalid Due To Markdown Issues. Could Be "
                                                          "Due To The User's Name."),
-                                         parse_mode="markdown",
                                          disable_web_page_preview=True)
             except KeyError:
                 await message.reply_text(markdown_parser("Hey Dear, how are you?" +
                                                          "\nNote: The Current Message Is "
                                                          "Invalid Due To An Issue With Some Misplaced "
                                                          "Messages. Please Update"),
-                                         parse_mode="markdown",
                                          disable_web_page_preview=True)
             except UserIsBlocked:
                 pass
@@ -175,27 +168,23 @@ async def send_broadcast_message(user_id, text, data_type, content, buttons, cli
                 if excp.MESSAGE == "Button_url_invalid":
                     await message.reply_text(markdown_parser("Hey Dear, how are you?" +
                                                              "\nNote: The Current Message Has An Invalid Url "
-                                                             "In One Of Its Buttons. Please Update."),
-                                             parse_mode="markdown")
+                                                             "In One Of Its Buttons. Please Update."))
                 elif excp.MESSAGE == "Unsupported url protocol":
                     await message.reply_text(markdown_parser("Hey Dear, how are you?" +
                                                              "\nNote: The Current Message Has Buttons Which "
                                                              "Use Url Protocols That Are Unsupported By "
-                                                             "Telegram. Please Update."),
-                                             parse_mode="markdown")
+                                                             "Telegram. Please Update."))
                 elif excp.MESSAGE == "Wrong url host":
                     await message.reply_text(markdown_parser("Hey Dear, how are you?" +
                                                              "\nNote: The Current Message Has Some Bad Urls. "
-                                                             "Please Update."),
-                                             parse_mode="markdown")
+                                                             "Please Update."))
                     logging.warning(text)
                     logging.warning(keyboard)
                     logging.exception("Could Not Parse! Got Invalid Url Host Errors")
                 else:
                     await message.reply_text(markdown_parser("Hey Dear, how are you?" +
                                                              "\nNote: An Error Occured When Sending The "
-                                                             "Custom Message. Please Update."),
-                                             parse_mode="markdown")
+                                                             "Custom Message. Please Update."))
                     logging.exception(excp.MESSAGE)
     else:
         await message.reply_text("Who The Hell You Are To Send This Command To Me...😡")

@@ -46,7 +46,7 @@ async def give_filter(client, message):
 **CHANNEL: {message.sender_chat.title} ({message.sender_chat.id})** 
 `CHAT: {message.chat.title} ({message.chat.id})`
 **MESSAGE: You Cannot Request Via Channel**"""
-        chat_channel = await message.reply_text(text, parse_mode="md", quote=True)
+        chat_channel = await message.reply_text(text, quote=True)
         await asyncio.sleep(5)
         await chat_channel.delete()
         await message.delete()
@@ -123,7 +123,7 @@ async def give_filter_edited(client, message):
 **CHANNEL: {message.sender_chat.title} ({message.sender_chat.id})** 
 `CHAT: {message.chat.title} ({message.chat.id})`
 **MESSAGE: You Cannot Request Via Channel**"""
-        chat_channel = await message.reply_text(text, parse_mode="md", quote=True)
+        chat_channel = await message.reply_text(text, quote=True)
         await asyncio.sleep(5)
         await chat_channel.delete()
         await message.delete()
@@ -410,11 +410,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         if mkact:
             await query.message.edit_text(
-                f"Connected to **{title}**",
-                parse_mode="md"
+                f"Connected to **{title}**"
             )
         else:
-            await query.message.edit_text('Some error occured!!', parse_mode="md")
+            await query.message.edit_text('Some error occured!!')
         return
     elif "disconnect" in query.data:
         await query.answer()
@@ -430,13 +429,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         if mkinact:
             await query.message.edit_text(
-                f"Disconnected from **{title}**",
-                parse_mode="md"
+                f"Disconnected from **{title}**"
             )
         else:
             await query.message.edit_text(
-                f"Some error occured!!",
-                parse_mode="md"
+                f"Some error occured!!"
             )
         return
     elif "deletecb" in query.data:
@@ -453,8 +450,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             )
         else:
             await query.message.edit_text(
-                f"Some error occured!!",
-                parse_mode="md"
+                f"Some error occured!!"
             )
         return
     elif query.data == "backcb":
@@ -550,7 +546,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
-                    parse_mode="html",
                     protect_content=settings["file_secure"] if settings["file_secure"] else False,
                     reply_markup=InlineKeyboardMarkup(
                         [
@@ -694,7 +689,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 chat_id=query.from_user.id,
                 file_id=file_id,
                 caption=f_caption,
-                parse_mode="html",
                 protect_content=FILE_SECURE,
                 reply_markup=InlineKeyboardMarkup(
                     [
@@ -1044,7 +1038,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
             text = "Here is the help for the **{}** module:\n".format(HELPABLE[module].__mod_name__) \
                    + HELPABLE[module].__help__
             await query.message.edit_text(text=text,
-                                          parse_mode="markdown",
                                           reply_markup=InlineKeyboardMarkup(
                                               [[InlineKeyboardButton(text="Back", callback_data="help_back")]]))
 
@@ -1058,22 +1051,18 @@ async def cb_handler(client: Client, query: CallbackQuery):
         elif next_match:
             next_page = int(next_match.group(1))
             await query.message.edit_text(script.HELP_STRINGS.format(first_name, "@lnc3f3r"),
-                                          parse_mode="markdown",
                                           reply_markup=InlineKeyboardMarkup(
                                               paginate_modules(next_page + 1, HELPABLE, "help")))
 
         elif back_match:
             await query.message.edit_text(text=script.HELP_STRINGS.format(first_name, "@lnc3f3r"),
-                                          parse_mode="markdown",
                                           reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
 
         elif help_match:
             await query.message.edit_text(text=script.HELP_STRINGS.format(first_name, "@lnc3f3r"),
-                                          parse_mode="markdown",
                                           reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
         elif close_match:
             await query.message.edit_text(text=script.HELP_STRINGS.format(first_name, "@lnc3f3r"),
-                                          parse_mode="markdown",
                                           reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
 
         # ensure no spinny white circle
@@ -1209,7 +1198,6 @@ async def auto_filter(client, msg, spoll=False):
                         caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
                                 f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
                                 f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
-                        parse_mode="html",
                         reply_to_message_id=msg.id
                     )
                     await asyncio.sleep(15)  # in seconds
@@ -1379,7 +1367,6 @@ async def auto_filter(client, msg, spoll=False):
             photo=random.choice(PICS),
             caption=cap,
             reply_markup=InlineKeyboardMarkup(btn),
-            parse_mode="html",
             reply_to_message_id=msg.id)
     if spoll:
         await msg.message.delete()
@@ -1446,7 +1433,6 @@ async def advantage_spell_chok(client, msg):
             caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
                     f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
-            parse_mode="html",
             reply_to_message_id=msg.id
         )
         await asyncio.sleep(15)  # in seconds

@@ -69,8 +69,7 @@ async def delete_filter(message, text, group_id):
         mycol.delete_one(myquery)
         await message.reply_text(
             f"'`{text}`'  deleted. I'll not respond to that filter anymore.",
-            quote=True,
-            parse_mode="md"
+            quote=True
         )
     else:
         await message.reply_text("Couldn't find that filter!", quote=True)

@@ -44,8 +44,7 @@ async def getstickerasfile(bot, message):
                     powered_by = "<b>[<a href='https://t.me/UFSBotz'>©𝙐𝙁𝙎 𝘽𝙤𝙩𝙯</a>]</b>"
                     await message.reply_document(
                         document=file_path,
-                        caption=f"💫 ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 : {powered_by}",
-                        parse_mode="html")
+                        caption=f"💫 ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 : {powered_by}")
                     await tx.delete()
                     os.remove(file_path)
                 #   os.remove(zip_path)
@@ -63,8 +62,7 @@ async def getstickerasfile(bot, message):
                     powered_by = "<b>[<a href='https://t.me/UFSBotz'>©𝙐𝙁𝙎 𝘽𝙤𝙩𝙯</a>]</b>"
                     await message.reply_document(
                         document=file_path,
-                        caption=f"💫 ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 : {powered_by}",
-                        parse_mode="html")
+                        caption=f"💫 ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 : {powered_by}")
                     await tx.delete()
                     os.remove(file_path)
                 except Exception as error:

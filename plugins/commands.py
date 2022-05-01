@@ -47,7 +47,7 @@ async def start(client, message):
             await message.reply(
                 script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title,
                                         temp.U_NAME,
-                                        temp.B_NAME), reply_markup=reply_markup, parse_mode="html")
+                                        temp.B_NAME), reply_markup=reply_markup)
             await asyncio.sleep(2)
             # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
             if not await db.get_chat(message.chat.id):
@@ -186,7 +186,6 @@ async def start(client, message):
                         chat_id=message.from_user.id,
                         file_id=msg.get("file_id"),
                         caption=f_caption + f"\n\n{f_sub_caption}",
-                        parse_mode="html",
                         protect_content=FILE_SECURE,
                         reply_markup=InlineKeyboardMarkup(
                             [
@@ -273,7 +272,6 @@ async def start(client, message):
             chat_id=message.from_user.id,
             file_id=file_id,
             caption=f_caption,
-            parse_mode="html",
             protect_content=FILE_SECURE,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -510,7 +508,6 @@ def send_help(client, chat_id, text, keyboard=None):
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     client.send_message(chat_id=chat_id,
                         text=text,
-                        parse_mode="markdown",
                         reply_markup=keyboard)
 
 
