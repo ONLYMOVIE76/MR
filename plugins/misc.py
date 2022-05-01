@@ -295,7 +295,7 @@ async def lang_translate(client, message):
         await ms.delete()
 
 
-@Client.on_message(filters.command("paste") & ~filters.edited)
+@Client.on_message(filters.command("paste"))
 async def paste_func(_, message):
     global content
     if not message.reply_to_message:
