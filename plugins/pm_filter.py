@@ -36,7 +36,7 @@ SPELL_CHECK = {}
 @Client.on_message(filters.group & filters.text & filters.incoming)    # & ~filters.edited
 async def give_filter(client, message):
     group_id = message.chat.id
-    chat_type = message.sender_chat.type if message.sender_chat else None
+    chat_type = message.sender_chat.type if message.sender_chat else message.chat.type
     name = message.text
 
     if chat_type.name in ["CHANNEL"]:
@@ -113,7 +113,7 @@ async def give_filter(client, message):
 @Client.on_edited_message(filters.group & filters.text & filters.incoming)    # & filters.edited
 async def give_filter_edited(client, message):
     group_id = message.chat.id
-    chat_type = message.sender_chat.type if message.sender_chat else None
+    chat_type = message.sender_chat.type if message.sender_chat else message.chat.type
     name = message.text
 
     if chat_type.name in ["CHANNEL"]:
