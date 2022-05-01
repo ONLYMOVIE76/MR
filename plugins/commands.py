@@ -7,6 +7,7 @@ import time
 import logging
 import random
 import asyncio
+from typing import Optional, Any
 
 from bot import Bot
 from Script import script
@@ -616,81 +617,85 @@ async def settings(client, message):
 
 @Client.on_message(filters.command('gbroadcast') & filters.private & filters.user(ADMINS))
 async def gp_broadcast(client, message):
-    userid = message.from_user.id if message.from_user else None
-    if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
-    chat_type = message.chat.type
+    try:
+        userid: Optional[Any] = message.from_user.id if message.from_user else None
+        if not userid:
+            return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+        chat_type = message.chat.type
 
-    if chat_type == "private":
-        grpid = await active_connection(str(userid))
-        if grpid is not None:
-            grp_id = grpid
-            try:
-                chat = await client.get_chat(grpid)
-                title = chat.title
-            except:
-                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+        if chat_type == "private":
+            grpid = await active_connection(str(userid))
+            if grpid is not None:
+                grp_id = grpid
+                try:
+                    chat = await client.get_chat(grpid)
+                    title = chat.title
+                except:
+                    await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                    return
+            else:
+                await message.reply_text("I'm not connected to any groups!", quote=True)
                 return
+
+        elif chat_type in ["group", "supergroup"]:
+            grp_id = message.chat.id
+            title = message.chat.title
+
         else:
-            await message.reply_text("I'm not connected to any groups!", quote=True)
             return
 
-    elif chat_type in ["group", "supergroup"]:
-        grp_id = message.chat.id
-        title = message.chat.title
+        st = await client.get_chat_member(grp_id, userid)
+        if (
+                st.status != "administrator"
+                and st.status != "creator"
+                and str(userid) not in ADMINS
+        ):
+            return
 
-    else:
-        return
+        msg = await message.reply('Getting List Of Chats..', quote=True)
+        await asyncio.sleep(1)
 
-    st = await client.get_chat_member(grp_id, userid)
-    if (
-            st.status != "administrator"
-            and st.status != "creator"
-            and str(userid) not in ADMINS
-    ):
-        return
+        b_msg = message.reply_to_message
 
-    msg = await message.reply('Getting List Of Chats..', quote=True)
-    await asyncio.sleep(1)
-
-    b_msg = message.reply_to_message
-
-    start_time = time.time()
-    await msg.edit_text(
-        text='Please Wait, Broadcasting To Connected Chat Is Starting Soon...')
-    await asyncio.sleep(1)
-
-    userid = message.from_user.id
-    groupids = await all_connections(str(userid))
-
-    if groupids is None:
+        start_time = time.time()
         await msg.edit_text(
-            "There Are No Active Connections!! Connect To Some Groups First.")
-        return
+            text='Please Wait, Broadcasting To Connected Chat Is Starting Soon...')
+        await asyncio.sleep(1)
 
-    i = 0
-    done = 0
-    success = 0
-    totl_chats = len(groupids)
-    try:
-        for groupid in groupids:
-            try:
-                text, data_type, content, buttons = get_msg_type(b_msg)
-                i += 1
-                ttl = await client.get_chat(str(groupid))
-                title = ttl.title
-                await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
-                success += 1
-                await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
-                await asyncio.sleep(0.5)
-            except Exception as e:
-                await message.reply(str(e))
-                pass
+        userid = message.from_user.id
+        groupids = await all_connections(str(userid))
+
+        if groupids is None:
+            await msg.edit_text(
+                "There Are No Active Connections!! Connect To Some Groups First.")
+            return
+
+        i = 0
+        done = 0
+        success = 0
+        totl_chats = len(groupids)
+        try:
+            for groupid in groupids:
+                try:
+                    text, data_type, content, buttons = get_msg_type(b_msg)
+                    i += 1
+                    ttl = await client.get_chat(str(groupid))
+                    title = ttl.title
+                    await msg.edit_text(f"**Broadcast Successfully Completed** `{title}: {i}/{totl_chats}`")
+                    success += 1
+                    await send_broadcast_message(groupid, text, data_type, content, buttons, client, message)
+                    await asyncio.sleep(0.5)
+                except Exception as e:
+                    await message.reply(str(e))
+                    pass
+        except Exception as e:
+            await message.reply(str(e))
+            return
+
+        time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
+        await msg.edit_text(
+            f"**Broadcast Completed:**\n**Completed in** `{time_taken} seconds.`\n\n**Total Chats** `{totl_chats}`\n"
+            f"**Completed:** `{done} / {totl_chats}`\n**Success:** `{success}`")
     except Exception as e:
-        await message.reply(str(e))
+        await message.reply_text(f"{str(e)}", quote=True)
         return
-
-    time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
-    await msg.edit_text(
-        f"**Broadcast Completed:**\n**Completed in** `{time_taken} seconds.`\n\n**Total Chats** `{totl_chats}`\n"
-        f"**Completed:** `{done} / {totl_chats}`\n**Success:** `{success}`")
