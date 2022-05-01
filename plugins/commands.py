@@ -546,8 +546,8 @@ async def settings(client, message):
 
         st = await client.get_chat_member(grp_id, userid)
         if (
-                st.status != "administrator"
-                and st.status != "creator"
+                st.status.value != "administrator"
+                and st.status.value != "owner"
                 and str(userid) not in ADMINS
         ):
             return
@@ -646,8 +646,8 @@ async def gp_broadcast(client, message):
 
         st = await client.get_chat_member(grp_id, userid)
         if (
-                st.status != "administrator"
-                and st.status != "creator"
+                st.status.value != "administrator"
+                and st.status.value != "owner"
                 and str(userid) not in ADMINS
         ):
             return

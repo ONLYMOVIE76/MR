@@ -44,8 +44,8 @@ async def addfilter(client, message):
 
     st = await client.get_chat_member(grp_id, userid)
     if (
-            st.status != "administrator"
-            and st.status != "creator"
+            st.status.value != "administrator"
+            and st.status.value != "owner"
             and str(userid) not in ADMINS
     ):
         await message.reply_text("You Don't Have Permission To Create This Filter.", quote=True)
@@ -150,8 +150,8 @@ async def get_all(client, message):
 
     st = await client.get_chat_member(grp_id, userid)
     if (
-            st.status != "administrator"
-            and st.status != "creator"
+            st.status.value != "administrator"
+            and st.status.value != "owner"
             and str(userid) not in ADMINS
     ):
         return

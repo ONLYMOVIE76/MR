@@ -36,8 +36,8 @@ async def addconnection(client, message):
     try:
         st = await client.get_chat_member(group_id, userid)
         if (
-                st.status != "administrator"
-                and st.status != "creator"
+                st.status.value != "administrator"
+                and st.status.value != "owner"
                 and str(userid) not in ADMINS
         ):
             await message.reply_text("You should be an admin in Given group!", quote=True)
@@ -52,7 +52,7 @@ async def addconnection(client, message):
         return
     try:
         st = await client.get_chat_member(group_id, "me")
-        if st.status == "administrator":
+        if st.status.value == "administrator":
             ttl = await client.get_chat(group_id)
             title = ttl.title
 
@@ -99,8 +99,8 @@ async def deleteconnection(client, message):
 
         st = await client.get_chat_member(group_id, userid)
         if (
-                st.status != "administrator"
-                and st.status != "creator"
+                st.status.value != "administrator"
+                and st.status.value != "owner"
                 and str(userid) not in ADMINS
         ):
             return

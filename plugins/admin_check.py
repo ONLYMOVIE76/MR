@@ -25,11 +25,11 @@ async def admin_check(message: Message) -> bool:
         user_id=user_id
     )
     admin_strings = [
-        "creator",
+        "owner",
         "administrator"
     ]
     # https://git.colinshark.de/PyroBot/PyroBot/src/branch/master/pyrobot/modules/admin.py#L69
-    if check_status.status not in admin_strings:
+    if check_status.status.value not in admin_strings:
         return False
     else:
         return True
