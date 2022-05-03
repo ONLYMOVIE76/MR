@@ -391,8 +391,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         await query.message.edit_text(
             f"Group Name : **{title}**\nGroup ID : `{group_id}`",
-            reply_markup=keyboard,
-            parse_mode="md"
+            reply_markup=keyboard
         )
         return
     elif "connectcb" in query.data:
@@ -636,7 +635,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             chat_id=query.from_user.id,
                             file_id=msg.get("file_id"),
                             caption=f_caption + f"\n\n{f_sub_caption}",
-                            parse_mode="html",
                             protect_content=FILE_SECURE,
                             reply_markup=InlineKeyboardMarkup(
                                 [
@@ -727,8 +725,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "help":
         # if not keyboard:
@@ -755,8 +752,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         # reply_markup = InlineKeyboardMarkup(buttons)
         # await query.message.edit_text(
         #     text=script.HELP_TXT.format(query.from_user.mention),
-        #     reply_markup=reply_markup,
-        #     parse_mode='html'
+        #     reply_markup=reply_markup
         # )
     elif query.data == "about":
         buttons = [
@@ -772,8 +768,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "source":
         buttons = [
@@ -784,8 +779,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.SOURCE_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "manuelfilter":
         buttons = [
@@ -797,8 +791,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.MANUELFILTER_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "button":
         buttons = [
@@ -809,8 +802,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.BUTTON_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "autofilter":
         buttons = [
@@ -821,8 +813,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.AUTOFILTER_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "coct":
         buttons = [
@@ -833,8 +824,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.CONNECTION_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "extra":
         buttons = [
@@ -846,8 +836,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.EXTRAMOD_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "admin":
         buttons = [
@@ -858,8 +847,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.ADMIN_TXT,
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "stats":
         buttons = [
@@ -878,8 +866,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         free = get_size(free)
         await query.message.edit_text(
             text=script.STATUS_TXT.format(total, users, chats, monsize, free),
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
         await asyncio.sleep(5)
         await client.request_callback_answer(query.message.chat.id, query.message.id, "help")
@@ -901,8 +888,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         free = get_size(free)
         await query.message.edit_text(
             text=script.STATUS_TXT.format(total, users, chats, monsize, free),
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
     elif query.data == "imdb":
         i, movie = query.data.split('#')
@@ -1044,7 +1030,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
         elif prev_match:
             curr_page = int(prev_match.group(1))
             await query.message.edit_text(script.HELP_STRINGS.format(first_name, "@lnc3f3r"),
-                                          parse_mode="markdown",
                                           reply_markup=InlineKeyboardMarkup(
                                               paginate_modules(curr_page - 1, HELPABLE, "help")))
 
@@ -1392,7 +1377,6 @@ async def advantage_spell_chok(client, msg):
             caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
                     f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
-            parse_mode="html",
             reply_to_message_id=msg.id
         )
         await asyncio.sleep(15)  # in seconds

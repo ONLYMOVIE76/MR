@@ -81,7 +81,6 @@ async def callback_query_next(_, message):
                 ]
             ]
         ),
-        parse_mode="markdown",
     )
 
 

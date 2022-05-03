@@ -172,7 +172,6 @@ async def get_ststs(bot, message):
     await message.reply_photo(
         photo=random.choice(PICS),
         caption=script.STATUS_TXT.format(files, total_users, totl_chats, size, free),
-        parse_mode='html',
         reply_markup=reply_markup,
         reply_to_message_id=message.id
     )

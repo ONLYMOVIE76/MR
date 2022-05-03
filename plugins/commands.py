@@ -79,8 +79,7 @@ async def start(client, message):
         await message.reply_photo(
             photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
         return
     if AUTH_CHANNEL and not await is_subscribed(client, message):
@@ -122,8 +121,7 @@ async def start(client, message):
         await message.reply_photo(
             photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
-            reply_markup=reply_markup,
-            parse_mode='html'
+            reply_markup=reply_markup
         )
         return
 
@@ -143,7 +141,7 @@ async def start(client, message):
         FILE_SECURE = settings["file_secure"]
     files_ = await get_file_details(file_id)
     if not files_:
-        sts = await message.reply("`⏳ Please Wait...`", parse_mode='markdown')
+        sts = await message.reply("`⏳ Please Wait...`")
         msgs = BATCH_FILES.get(file_id)
         if not msgs:
             file = await client.download_media(file_id)
@@ -491,7 +489,7 @@ async def update_restart(bot, message):
 @Bot.on_message(filters.command("bat"))
 async def start111(client: Client, message):
     try:
-        answer = await client.ask(message.chat.id, '*Send me your name:*', parse_mode='Markdown')
+        answer = await client.ask(message.chat.id, '*Send me your name:*')
         await client.send_message(message.chat.id, f'Your name is: ')
     except Exception as err:
         await client.send_message(message.chat.id, f'Error is: {str(err)}')

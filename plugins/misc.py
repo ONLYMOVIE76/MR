@@ -136,7 +136,6 @@ async def who_is(client, message):
             text=message_out_str,
             reply_markup=reply_markup,
             quote=True,
-            parse_mode="html",
             disable_notification=True
         )
     await status_message.delete()
