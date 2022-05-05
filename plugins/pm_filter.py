@@ -1266,12 +1266,12 @@ async def auto_filter(client, msg, spoll=False):
         InlineKeyboardButton("🧲 Tᴏʀʀᴇɴᴛ Gʀᴏᴜᴘ", url="https://t.me/UFSLeechPublic")
     ])
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),
-        InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UFSNewRelease")
+        InlineKeyboardButton("ᴘᴍ ᴍᴇ", url="https://t.me/UFSChatBot"),
+        InlineKeyboardButton("ɴᴇᴡ ᴍᴏᴠɪᴇs", url="https://t.me/UFSNewRelease")
     ])
 
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ Nᴇᴡ Uᴘᴅᴀᴛᴇs ⭕️", url="https://t.me/UFSFilmUpdate")
+        InlineKeyboardButton("🔄 Nᴇᴡ Uᴘᴅᴀᴛᴇs", url="https://t.me/UFSFilmUpdate")
     ])
 
     imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
