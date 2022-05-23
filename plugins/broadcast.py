@@ -212,7 +212,7 @@ __help__ = """
  
  Format For Text With Buttons:
     Hello Dear How Are You! You Can Join My Channel.
-    [Join Here](buttonurl://t.me/UFSBotz)
+    [Join Here](buttonurl://t.me/onlymovie76)
 """
 
 __mod_name__ = "Broadcast"
