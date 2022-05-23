@@ -2,7 +2,7 @@ class script(object):
     START_TXT = """𝙷𝙴𝙻𝙾 {},
 𝙼𝚈 𝙽𝙰𝙼𝙴 𝙸𝚂 <a href=https://t.me/{}>{}</a>, 𝙸 𝙲𝙰𝙽 𝙿𝚁𝙾𝚅𝙸𝙳𝙴 𝙼𝙾𝚅𝙸𝙴𝚂😍"""
     HELP_STRINGS = """
-Hey Dear <b>{}</b>! My name is <b>UFS #V3.0</b>. I Am A Group Movie Bot, Here To Help You Get Around And Keep The Order In Your Groups!
+Hey Dear <b>{}</b>! My name is <b>Alaska</b>. I Am A Group Movie Bot, Here To Help You Get Around And Keep The Order In Your Groups!
 I Have Lots Of Handy Features, 
 
 <b>Helpful commands</b>:
@@ -52,7 +52,7 @@ All commands can be used with the following: /
 3. Buttons should be properly parsed as markdown format
 
 <b>URL buttons:</b>
-<code>[Button Text](buttonurl:https://t.me/UFSChatBot)</code>
+<code>[Button Text](buttonurl:https://t.me/DropYouerRequest)</code>
 
 <b>Alert buttons:</b>
 <code>[Button Text](buttonalert:This is an alert message)</code>"""
@@ -79,7 +79,7 @@ All commands can be used with the following: /
     EXTRAMOD_TXT = """Help: <b>Extra Modules</b>
 
 <b>NOTE:</b>
-these are the extra features of Eva Maria
+these are the extra features of Alaska
 
 <b>Commands and Usage:</b>
 • /id - <code>get id of a specified user.</code>
