@@ -1457,17 +1457,17 @@ async def advantage_spell_chok(client, msg):
     btn = build_keyboard(btn)
 
     btn.insert(0, [
-        InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UniversalFilmStudioo"),
-        InlineKeyboardButton("🧲 Tᴏʀʀᴇɴᴛ Gʀᴏᴜᴘ", url="https://t.me/UFSLeechPublic")
+        InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76"),
+        InlineKeyboardButton("🎬 Movies 🎬", url="https://t.me/onlymovie76")
     ])
 
     # btn.insert(0, [
-    #     InlineKeyboardButton("⭕️ Wᴇʙ Sᴇʀɪᴇs ⭕️", url="https://t.me/UFSWebSeries")
+    #     InlineKeyboardButton("📺 Wᴇʙ Sᴇʀɪᴇs 🎬", url="https://t.me/M76Links")
     # ])
     #
     # btn.insert(0, [
-    #     InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),
-    #     InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UFSNewRelease")
+    #     InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76"),
+    #     InlineKeyboardButton("🎬 Movies 🎬", url="https://t.me/onlymovie76")
     # ])
 
     d_msg = await msg.reply(f"I Couldn't Find Anything Related To That\n\n"
