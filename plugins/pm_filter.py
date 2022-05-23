@@ -260,12 +260,12 @@ async def next_page(bot, query):
         )
 
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ Nᴇᴡ Uᴘᴅᴀᴛᴇs ⭕️", url="https://t.me/UFSFilmUpdate")
+        InlineKeyboardButton("📺 Nᴇᴡ Uᴘᴅᴀᴛᴇs 🎬", url="https://t.me/M76Links")
     ])
 
     btn.insert(0, [
-        InlineKeyboardButton("⭕️ ᴘᴍ ᴍᴇ ⭕️", url="https://t.me/UFSChatBot"),
-        InlineKeyboardButton("⚜ ɴᴇᴡ ᴍᴏᴠɪᴇs ⚜", url="https://t.me/UFSNewRelease")
+        InlineKeyboardButton("🎬 Movies 🎬", url="https://t.me/onlymovie76"),
+        InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76")
     ])
     try:
         await query.edit_message_reply_markup(
@@ -532,7 +532,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             f_caption = f_caption
         if f_caption is None:
             f_caption = f"{files.file_name}"
-        f_caption = f_caption + f"\n\n<code>┈•••✿ @UniversalFilmStudio ✿•••┈\n\n💾 Size: {size}</code>"
+        f_caption = f_caption + f"\n\n<code>┈•••🔥 @onlymovie76 🔥•••┈\n\n💾 Size: {size}</code>"
 
         try:
             if AUTH_CHANNEL and not await is_subscribed(client, query):
@@ -551,15 +551,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         [
                             [
                                 InlineKeyboardButton(
-                                    '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
+                                    '📺 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/onlyseries76"
                                 ),
                                 InlineKeyboardButton(
-                                    '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
+                                    '🎬 ᴍᴏᴠɪᴇs', url="https://t.me/onlymovie76"
                                 )
                             ],
                             [
                                 InlineKeyboardButton(
-                                    '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
+                                    '🎬 Link 📺', url="https://t.me/M76Links"
                                 )
                             ]
                         ]
@@ -616,11 +616,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 if f_caption is None:
                     f_caption = f"{title}"
                 f_sub_caption = f"<code>💾 Size: {size}</code>\n\n🌟༺ ──•◈•─ ─•◈•──༻🌟\n<b>➧ പുതിയ സിനിമകൾ / വെബ്‌ സീരീസ് " \
-                                f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🔊 Gʀᴏᴜᴘ: " \
-                                f"@UniversalFilmStudio \n🔊 Gʀᴏᴜᴘ: @UFSWebSeries \n🔊 " \
-                                f"Cʜᴀɴɴᴇʟ: @UFSNewRelease \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
+                                f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🎬 Gʀᴏᴜᴘ: " \
+                                f"@onlymovie76 \n📺 Gʀᴏᴜᴘ: @onlyseries76 \n🎞️ " \
+                                f"Cʜᴀɴɴᴇʟ: @M76Links \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
 
-                # f_caption + f"\n\n<code>┈•••✿ @UniversalFilmStudio ✿•••┈\n\n💾 Size: {size}</code>"
+                # f_caption + f"\n\n<code>┈•••🔥 @onlymovie76 🔥•••┈\n\n💾 Size: {size}</code>"
                 try:
                     await query.message.delete()
                     if file_type not in ["video", 'audio', 'document']:
@@ -641,15 +641,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                 [
                                     [
                                         InlineKeyboardButton(
-                                            '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
+                                            'Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/onlyseries76"
                                         ),
                                         InlineKeyboardButton(
-                                            '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
+                                            'ᴍᴏᴠɪᴇs', url="https://t.me/onlymovie76"
                                         )
                                     ],
                                     [
                                         InlineKeyboardButton(
-                                            '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
+                                            'Movies', url="https://t.me/onlymovie76"
                                         )
                                     ]
                                 ]
@@ -677,9 +677,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if f_caption is None:
             f_caption = f"{files.file_name}"
         f_sub_caption = f"<code>💾 Size: {size}</code>\n\n🌟༺ ──•◈•─ ─•◈•──༻🌟\n<b>➧ പുതിയ സിനിമകൾ / വെബ്‌ സീരീസ് " \
-                        f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🔊 Gʀᴏᴜᴘ: " \
-                        f"@UniversalFilmStudio \n🔊 Gʀᴏᴜᴘ: @UFSWebSeries \n🔊 " \
-                        f"Cʜᴀɴɴᴇʟ: @UFSNewRelease \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
+                        f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🎬 Gʀᴏᴜᴘ: " \
+                        f"@onlymovie76 \n📺 Gʀᴏᴜᴘ: @onlyseries76 \n🎞️ " \
+                        f"Cʜᴀɴɴᴇʟ: @M76Links \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
 
         f_caption = f_caption + f"\n\n{f_sub_caption}"
         try:
@@ -693,15 +693,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     [
                         [
                             InlineKeyboardButton(
-                                '🎭 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/UFSFilmUpdate"
+                                '📺 series', url="https://t.me/onlyseries76"
                             ),
                             InlineKeyboardButton(
-                                '🎭 ᴍᴏᴠɪᴇs', url="https://t.me/UniversalFilmStudio"
+                                '🎬 ᴍᴏᴠɪᴇs', url="https://t.me/onlymovie76"
                             )
                         ],
                         [
                             InlineKeyboardButton(
-                                '⭕️ ᴘᴍ ᴍᴇ ⭕️', url="https://t.me/UFSChatBot"
+                                '🎬 Updates 📺', url="https://t.me/M76Links"
                             )
                         ]
                     ]
@@ -716,7 +716,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [
             [
                 InlineKeyboardButton('🔍 Search', switch_inline_query_current_chat=''),
-                InlineKeyboardButton('🤖 Updates', url='https://t.me/TeamEvamaria')
+                InlineKeyboardButton('🎬 Updates', url='https://t.me/M76Links')
             ],
             [
                 InlineKeyboardButton('ℹ Help', callback_data='help'),
@@ -758,7 +758,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "about":
         buttons = [
             [
-                InlineKeyboardButton('🤖 Updates', url='https://t.me/TeamEvamaria'),
+                InlineKeyboardButton('🚀 Updates', url='https://t.me/M76Links'),
                 InlineKeyboardButton('♥️ Source', callback_data='source')
             ],
             [
@@ -1180,9 +1180,9 @@ async def auto_filter(client, msg, spoll=False):
                 else:
                     Send_message = await client.send_video(
                         chat_id=msg.chat.id,
-                        video="https://telegra.ph/file/3e9f7db0c98e6b236c2c7.mp4",
+                        video="https://telegra.ph/file/1fbdc1703b58c5c0ed242.mp4",
                         caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
-                                f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
+                                f"<b><a href='https://t.me/M76Links'>Channel</a></b>. \n\n"
                                 f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
                         reply_to_message_id=msg.id
                     )
@@ -1214,7 +1214,7 @@ async def auto_filter(client, msg, spoll=False):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] - 🎬 {file.file_name}", callback_data=f'files#{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] - {file.file_name}", callback_data=f'files#{file.file_id}'
                 ),
             ]
             for file in files
@@ -1263,15 +1263,15 @@ async def auto_filter(client, msg, spoll=False):
         )
 
     btn.insert(0, [
-        InlineKeyboardButton("🧲 Tᴏʀʀᴇɴᴛ Gʀᴏᴜᴘ", url="https://t.me/UFSLeechPublic")
+        InlineKeyboardButton("🎞️ Updates 🎞️", url="https://t.me/M76Links")
     ])
     btn.insert(0, [
-        InlineKeyboardButton("ᴘᴍ ᴍᴇ", url="https://t.me/UFSChatBot"),
-        InlineKeyboardButton("ɴᴇᴡ ᴍᴏᴠɪᴇs", url="https://t.me/UFSNewRelease")
+        InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76"),
+        InlineKeyboardButton("🎬 Movies 🎬", url="https://t.me/onlymovie76")
     ])
 
     btn.insert(0, [
-        InlineKeyboardButton("🔄 Nᴇᴡ Uᴘᴅᴀᴛᴇs", url="https://t.me/UFSFilmUpdate")
+        InlineKeyboardButton("🎞️ Nᴇᴡ Uᴘᴅᴀᴛᴇs", url="https://t.me/M76Links")
     ])
 
     imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
@@ -1379,9 +1379,9 @@ async def advantage_spell_chok(client, msg):
     if not g_s:
         Send_message = await client.send_video(
             chat_id=msg.chat.id,
-            video="https://telegra.ph/file/3e9f7db0c98e6b236c2c7.mp4",
+            video="https://telegra.ph/file/1fbdc1703b58c5c0ed242.mp4",
             caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
-                    f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
+                    f"<b><a href='https://t.me/M76Links'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
             reply_to_message_id=msg.id
         )
@@ -1419,9 +1419,9 @@ async def advantage_spell_chok(client, msg):
     if not movielist:
         Send_message = await client.send_video(
             chat_id=msg.chat.id,
-            video="https://telegra.ph/file/3e9f7db0c98e6b236c2c7.mp4",
+            video="https://telegra.ph/file/1fbdc1703b58c5c0ed242.mp4",
             caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
-                    f"<b><a href='https://t.me/UFSNewRelease'>Channel</a></b>. \n\n"
+                    f"<b><a href='https://t.me/M76Links'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
             reply_to_message_id=msg.id
         )
