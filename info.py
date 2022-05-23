@@ -36,8 +36,8 @@ ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '0').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '631110062 1636552877 1535083157').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
-auth_channel = environ.get('AUTH_CHANNEL')
-auth_grp = environ.get('AUTH_GROUP', '-1001737238267')
+auth_channel = environ.get('AUTH_CHANNEL', '-1001625789036')
+auth_grp = environ.get('AUTH_GROUP')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 
