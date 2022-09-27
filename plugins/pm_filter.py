@@ -215,7 +215,7 @@ async def next_page(bot, query):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] - 🎬 {file.file_name}", callback_data=f'files#{file.file_id}'
+                    text=f"[{get_size(file.file_size)}] - {file.file_name}", callback_data=f'files#{file.file_id}'
                 ),
             ]
             for file in files
@@ -260,7 +260,7 @@ async def next_page(bot, query):
         )
 
     btn.insert(0, [
-        InlineKeyboardButton("📺 Nᴇᴡ Uᴘᴅᴀᴛᴇs 🎬", url="https://t.me/M76Links")
+        InlineKeyboardButton("📺 Group 📺", url="https://t.me/TvSeriesLand4U")
     ])
 
     btn.insert(0, [
@@ -551,7 +551,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         [
                             [
                                 InlineKeyboardButton(
-                                    '📺 Nᴇᴡ Uᴘᴅᴀᴛᴇs', url="https://t.me/onlyseries76"
+                                    '📺 Uᴘᴅᴀᴛᴇs', url="https://t.me/onlyseries76"
                                 ),
                                 InlineKeyboardButton(
                                     '🎬 ᴍᴏᴠɪᴇs', url="https://t.me/onlymovie76"
@@ -559,7 +559,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             ],
                             [
                                 InlineKeyboardButton(
-                                    '🎬 Link 📺', url="https://t.me/M76Links"
+                                    'Botz', url="https://t.me/Astrong_Bots"
                                 )
                             ]
                         ]
@@ -618,7 +618,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 f_sub_caption = f"<code>💾 Size: {size}</code>\n\n🌟༺ ──•◈•─ ─•◈•──༻🌟\n<b>➧ പുതിയ സിനിമകൾ / വെബ്‌ സീരീസ് " \
                                 f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🎬 Gʀᴏᴜᴘ: " \
                                 f"@onlymovie76 \n📺 Gʀᴏᴜᴘ: @onlyseries76 \n🎞️ " \
-                                f"Cʜᴀɴɴᴇʟ: @M76Links \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
+                                f"Cʜᴀɴɴᴇʟ: @Astrong_Bots\n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
 
                 # f_caption + f"\n\n<code>┈•••🔥 @onlymovie76 🔥•••┈\n\n💾 Size: {size}</code>"
                 try:
@@ -679,7 +679,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         f_sub_caption = f"<code>💾 Size: {size}</code>\n\n🌟༺ ──•◈•─ ─•◈•──༻🌟\n<b>➧ പുതിയ സിനിമകൾ / വെബ്‌ സീരീസ് " \
                         f"വേണോ? എന്നാൽ പെട്ടെന്ന് ഗ്രൂപ്പിൽ ജോയിൻ ആയിക്കോ\n\n🎬 Gʀᴏᴜᴘ: " \
                         f"@onlymovie76 \n📺 Gʀᴏᴜᴘ: @onlyseries76 \n🎞️ " \
-                        f"Cʜᴀɴɴᴇʟ: @M76Links \n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
+                        f"Cʜᴀɴɴᴇʟ: @Astrong_Bots\n\n🎗️ʝσιи 🎗️ ѕнαяє🎗️ ѕυρρσят🎗️ </b>"
 
         f_caption = f_caption + f"\n\n{f_sub_caption}"
         try:
@@ -701,7 +701,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         ],
                         [
                             InlineKeyboardButton(
-                                '🎬 Updates 📺', url="https://t.me/M76Links"
+                                '🤖 Updates', url="https://t.me/Astrong_Bots"
                             )
                         ]
                     ]
@@ -758,7 +758,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "about":
         buttons = [
             [
-                InlineKeyboardButton('🚀 Updates', url='https://t.me/M76Links'),
+                InlineKeyboardButton('🚀 Updates', url='https://t.me/onlyseries76'),
                 InlineKeyboardButton('♥️ Source', callback_data='source')
             ],
             [
@@ -1182,7 +1182,7 @@ async def auto_filter(client, msg, spoll=False):
                         chat_id=msg.chat.id,
                         video="https://telegra.ph/file/1fbdc1703b58c5c0ed242.mp4",
                         caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
-                                f"<b><a href='https://t.me/M76Links'>Channel</a></b>. \n\n"
+                                f"<b><a href='https://t.me/onlyseries76'>Channel</a></b>. \n\n"
                                 f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
                         reply_to_message_id=msg.id
                     )
@@ -1263,7 +1263,7 @@ async def auto_filter(client, msg, spoll=False):
         )
 
     btn.insert(0, [
-        InlineKeyboardButton("🎞️ Updates 🎞️", url="https://t.me/M76Links")
+        InlineKeyboardButton("🤖 Updates", url="https://t.me/Astrong_Bots")
     ])
     btn.insert(0, [
         InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76"),
@@ -1271,7 +1271,7 @@ async def auto_filter(client, msg, spoll=False):
     ])
 
     btn.insert(0, [
-        InlineKeyboardButton("🎞️ Nᴇᴡ Uᴘᴅᴀᴛᴇs", url="https://t.me/M76Links")
+        InlineKeyboardButton("🎞️ Nᴇᴡ Uᴘᴅᴀᴛᴇs", url="https://t.me/onlyseries76")
     ])
 
     imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
@@ -1381,7 +1381,7 @@ async def advantage_spell_chok(client, msg):
             chat_id=msg.chat.id,
             video="https://telegra.ph/file/1fbdc1703b58c5c0ed242.mp4",
             caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
-                    f"<b><a href='https://t.me/M76Links'>Channel</a></b>. \n\n"
+                    f"<b><a href='https://t.me/onlyseries76'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
             reply_to_message_id=msg.id
         )
@@ -1421,7 +1421,7 @@ async def advantage_spell_chok(client, msg):
             chat_id=msg.chat.id,
             video="https://telegra.ph/file/1fbdc1703b58c5c0ed242.mp4",
             caption=f"Couldn't Find This Movie.Please Try Again Or Search On Our "
-                    f"<b><a href='https://t.me/M76Links'>Channel</a></b>. \n\n"
+                    f"<b><a href='https://t.me/onlyseries76'>Channel</a></b>. \n\n"
                     f"ഈ സിനിമയുടെ ഒറിജിനൽ പേര് ഗൂഗിളിൽ പോയി കണ്ടെത്തി അതുപോലെ ഇവിടെ കൊടുക്കുക 🥺",
             reply_to_message_id=msg.id
         )
@@ -1457,16 +1457,16 @@ async def advantage_spell_chok(client, msg):
     btn = build_keyboard(btn)
 
     btn.insert(0, [
-        InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76"),
+        InlineKeyboardButton("📺 Series 📺", url="https://t.me/TvSeriesLand4U"),
         InlineKeyboardButton("🎬 Movies 🎬", url="https://t.me/onlymovie76")
     ])
 
     # btn.insert(0, [
-    #     InlineKeyboardButton("📺 Wᴇʙ Sᴇʀɪᴇs 🎬", url="https://t.me/M76Links")
+    #     InlineKeyboardButton("📺 Wᴇʙ Sᴇʀɪᴇs 🎬", url="https://t.me/onlyseries76")
     # ])
     #
     # btn.insert(0, [
-    #     InlineKeyboardButton("📺 Series 📺", url="https://t.me/onlyseries76"),
+    #     InlineKeyboardButton("📺 Series 📺", url="https://t.me/TvSeriesLand4U"),
     #     InlineKeyboardButton("🎬 Movies 🎬", url="https://t.me/onlymovie76")
     # ])
 
